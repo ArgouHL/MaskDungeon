@@ -7,6 +7,7 @@ public class PlayerBehavior : MonoBehaviour
     [Header("移动设置")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 720f;
+    [SerializeField] private float gravity = -9.81f;
 
     [Header("攻击设置")]
     [SerializeField] private AttackPattern[] attackPatterns;
@@ -16,6 +17,7 @@ public class PlayerBehavior : MonoBehaviour
     private Quaternion targetRotation;
     private bool hasTargetRotation = false;
     private bool isAttacking = false;
+    private float yVelocity = 0f;
 
     CharacterController characterController;
 
@@ -32,8 +34,24 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Move()
     {
+        // 處理重力（不受攻擊狀態影響）
+        if (characterController.isGrounded && yVelocity < 0)
+        {
+            yVelocity = -2f; // 保持一點向下的力，確保持續接觸地面
+        }
+        else
+        {
+            yVelocity += gravity * Time.deltaTime; // 應用重力
+        }
+
         // 攻擊時不能移動也不能旋轉
-        if (isAttacking) return;
+        if (isAttacking)
+        {
+            // 只應用重力
+            Vector3 gravityMove = new Vector3(0, yVelocity, 0) * Time.deltaTime;
+            characterController.Move(gravityMove);
+            return;
+        }
 
         // 檢測按鍵輸入（支持八方位）
         moveInput = new Vector2(
@@ -76,11 +94,15 @@ public class PlayerBehavior : MonoBehaviour
             }
         }
 
-        // 如果有方向輸入，使用 CharacterController 進行移動
+        // 計算最終移動（水平移動 + 重力）
+        Vector3 finalMove = Vector3.zero;
         if (moveInput != Vector2.zero)
         {
-            characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+            finalMove = moveDirection * moveSpeed * Time.deltaTime;
         }
+        finalMove.y = yVelocity * Time.deltaTime;
+
+        characterController.Move(finalMove);
     }
 
     private void Attack()
