@@ -8,30 +8,40 @@ public class AIController : MonoBehaviour
     public Transform eyePoint;
     [SerializeField] private LayerMask obstacleMask;
 
+    [Header("Patrol")]
     public float patrolRadius = 8f;
-    
+    Vector3 patrolDestination;
+
+    [Header("Attack")]
     public float attackDistance = 2.5f;
-    public float attackCD = 3f;
+    public float attackCD = 1.5f;
     public float attackRecover = 0.5f;
     public float attackTimer;
-    
+
+    [Header("Chase")]
     public float chaseDistance = 16f;
-    public float chaseDegree = 60f;
+    public float chaseDegree = 105f;
     public float chaseTimer;
     public float chaseTime = 3f;
 
 
-
+    [Header("Retreat")]
     public float retreatDistance = 1.8f;
     public float retreatSpeed = 3f;
     public float reachedDistance = 0.6f;
+    [Header("Idle")]
     public float idleMin = 2f;
     public float idleMax = 5f;
-
     public float idleTimer;
     private IState currentState;
 
-    Vector3 patrolDestination;
+    [Header("Mob Basic Setting")]
+    public int health = 10;
+    public int damage = 1;
+    public GameObject dropMask;
+
+
+
 
     void Start()
     {
@@ -44,11 +54,16 @@ public class AIController : MonoBehaviour
             }
         }
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        ChangeState(new WalkState());
+        ChangeState(new IdleState());
     }
 
     void Update()
     {
+        if(currentState is DeathState)
+        {
+            return;
+        }
+
         if(attackTimer >= 0)
         {
             attackTimer -= Time.deltaTime;
@@ -155,7 +170,16 @@ public class AIController : MonoBehaviour
         return true;
     }
 
+    //====Health System====
 
+    public void Hurt(int damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            ChangeState(new DeathState());
+        }
+    }
 
     //====Gizmos====
 
@@ -163,5 +187,11 @@ public class AIController : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, attackDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, chaseDistance);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, retreatDistance);
     }
 }

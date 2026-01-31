@@ -37,18 +37,22 @@ public class ChaseState : IState
         }
         else
         {
-            controller.anim.SetBool("isWalking", false);
 
             dir.Normalize();
             controller.agent.isStopped = true;
             if(Vector3.Angle( -dir,controller.transform.forward) > 5f)
             {
+                controller.anim.SetBool("isWalking", true);
                 Quaternion targetRot = Quaternion.LookRotation(-dir);
                 controller.transform.rotation = Quaternion.RotateTowards(
                     controller.transform.rotation,
                     targetRot,
                     360f * Time.deltaTime
                 );
+            }
+            else
+            {
+                controller.anim.SetBool("isWalking", false);
             }
         }
         
