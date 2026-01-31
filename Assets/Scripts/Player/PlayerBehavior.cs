@@ -108,8 +108,23 @@ public class PlayerBehavior : MonoBehaviour
 
         GameObject atk = Instantiate(attackPatterns[index].atkPrefab, transform);
         atk.transform.localPosition = attackPatterns[index].point;
+
+        // 設定攻擊來源為玩家
+        SetAttackSource(atk, "Player");
+
         yield return new WaitForSeconds(attackPatterns[index].atkTime);
 
         isAttacking = false;
+    }
+
+    private void SetAttackSource(GameObject attackObject, string source)
+    {
+        CheckAttack checkAttack = attackObject.GetComponent<CheckAttack>();
+        if (checkAttack == null)
+        {
+            checkAttack = attackObject.transform.GetChild(0).GetComponent<CheckAttack>();
+        }
+        if (checkAttack != null)
+            checkAttack.attackSource = source;
     }
 }

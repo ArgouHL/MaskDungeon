@@ -67,11 +67,23 @@ public class EnemyBehaviour : MonoBehaviour
         {
             GameObject atk = Instantiate(attackPatterns[typeID].atkPrefab, transform);
             atk.transform.localPosition = attackPatterns[typeID].point;
+
+            // 設定攻擊來源為敵人
+            SetAttackSource(atk, "Enemy");
         }
 
         yield return new WaitForSeconds(attackPatterns[typeID].atkTime);
 
         isAttacking = false;
         isAimming = false;
+    }
+
+    private void SetAttackSource(GameObject attackObject, string source)
+    {
+        CheckAttack checkAttack = attackObject.GetComponent<CheckAttack>();
+        if (checkAttack != null)
+        {
+            checkAttack.attackSource = source;
+        }
     }
 }
