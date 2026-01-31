@@ -5,8 +5,25 @@ public class AIController : MonoBehaviour
     public Animator anim;
     public UnityEngine.AI.NavMeshAgent agent;
     public Transform player;
+    public Transform eyePoint;
+    [SerializeField] private LayerMask obstacleMask;
+
     public float patrolRadius = 8f;
+    
     public float attackDistance = 2.5f;
+    public float attackCD = 3f;
+    public float attackRecover = 0.5f;
+    public float attackTimer;
+    
+    public float chaseDistance = 16f;
+    public float chaseDegree = 60f;
+    public float chaseTimer;
+    public float chaseTime = 3f;
+
+
+
+    public float retreatDistance = 1.8f;
+    public float retreatSpeed = 3f;
     public float reachedDistance = 0.6f;
     public float idleMin = 2f;
     public float idleMax = 5f;
@@ -32,20 +49,49 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
-        if (player != null && Vector3.Distance(transform.position, player.position) <= attackDistance)
+        if(attackTimer >= 0)
         {
-            //if not already in AttackState, switch to it
-            if (!(currentState is AttackState))
+            attackTimer -= Time.deltaTime;
+        }
+        if (player == null)
+        {
+            if(currentState is not WalkState && currentState is not IdleState)
             {
-                ChangeState(new AttackState());
+                ChangeState(new IdleState());
             }
         }
         else
         {
-            //if in AttackState, switch to WalkState
-            if (currentState is AttackState)
+            Vector3 direction = player.position - transform.position;
+            direction.y = 0;
+            float distance = direction.magnitude;
+            bool inSight = distance <= chaseDistance && Vector3.Angle(direction, transform.forward) <= chaseDegree && HasLineOfSightToPlayer(direction, distance);
+            if( currentState is WalkState || currentState is IdleState)
             {
-                ChangeState(new WalkState());
+                if(inSight)
+                {
+                    ChangeState(new ChaseState());
+                    chaseTimer = 0;
+                }
+            }
+            else
+            {
+                if(inSight){
+                    chaseTimer = 0;
+                    if(distance < attackDistance && attackTimer <= 0f)
+                    {
+                        attackTimer = attackCD + attackRecover;
+                        ChangeState(new AttackState());
+                    }
+                }
+                else
+                {
+                    chaseTimer += Time.deltaTime;
+                    if(chaseTimer >= chaseTime)
+                    {
+                        ChangeState(new IdleState());
+                    }
+                }
             }
         }
 
@@ -96,6 +142,20 @@ public class AIController : MonoBehaviour
         result = center;
         return false;
     }
+
+    bool HasLineOfSightToPlayer(Vector3 direction, float distance)
+    {
+        Vector3 origin = eyePoint != null ? eyePoint.position : transform.position + Vector3.up;
+
+        if (Physics.Raycast(origin, direction.normalized, out RaycastHit hit, distance, obstacleMask))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+
 
     //====Gizmos====
 
