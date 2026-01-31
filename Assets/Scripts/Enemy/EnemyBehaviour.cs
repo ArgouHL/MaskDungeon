@@ -18,40 +18,54 @@ public class EnemyBehaviour : MonoBehaviour
     private bool isAttacking = false;
     private bool isAimming = false;
     private GameObject currentAimEffect;
+    AIController aiController;
+    void Start()
+    {
+        if (Player == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                Player = playerObj.transform;
+            }
+        }
+        aiController = GetComponent<AIController>();
+    }
 
     private void Update()
     {
-        if (!Menu.gameStartBool)
-            return;
+        // float distance = Vector3.Distance(transform.position, Player.position);
 
-        float distance = Vector3.Distance(transform.position, Player.position);
+        // Debug.Log("Enemy Distance to Player: " + distance);
 
-        Debug.Log("Enemy Distance to Player: " + distance);
+        // if (distance <= attackRange && !isAttacking)
+        // {
+        //     Debug.Log("Enemy Start Attack");
+        //     StartCoroutine(AttackCoroutine());
+        // }
 
-        if (distance <= attackRange && !isAttacking)
-        {
-            Debug.Log("Enemy Start Attack");
-            StartCoroutine(AttackCoroutine());
-        }
+        // // 瞄準階段平滑旋轉看向玩家
+        // if (isAttacking && !isAimming)
+        // {
+        //     Debug.Log("Enemy Aimming");
+        //     Vector3 direction = (Player.position - transform.position).normalized;
+        //     direction.y = 0; // 保持在水平面上
 
-        // 瞄準階段平滑旋轉看向玩家
-        if (isAttacking && !isAimming)
-        {
-            Debug.Log("Enemy Aimming");
-            Vector3 direction = (Player.position - transform.position).normalized;
-            direction.y = 0; // 保持在水平面上
+        //     if (direction != Vector3.zero)
+        //     {
+        //         Quaternion targetRotation = Quaternion.LookRotation(direction);
+        //         transform.rotation = Quaternion.RotateTowards(
+        //             transform.rotation,
+        //             targetRotation,
+        //             rotationSpeed * Time.deltaTime
+        //         );
+        //     }
+        // }
 
-            if (direction != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.RotateTowards(
-                    transform.rotation,
-                    targetRotation,
-                    rotationSpeed * Time.deltaTime
-                );
-            }
-        }
-
+    }
+    public void Attack()
+    {
+        StartCoroutine(AttackCoroutine());
     }
 
     private IEnumerator AttackCoroutine()
@@ -99,5 +113,10 @@ public class EnemyBehaviour : MonoBehaviour
     public int GetTypeID ()
     {
         return typeID;
+    }
+
+    public void GetDamage(int dmg)
+    {
+        aiController.Hurt(dmg);
     }
 }

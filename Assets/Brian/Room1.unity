@@ -503,8 +503,19 @@ MonoBehaviour:
   anim: {fileID: 705636288}
   agent: {fileID: 0}
   player: {fileID: 0}
+  eyePoint: {fileID: 0}
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
   patrolRadius: 6
   attackDistance: 1.24
+  attackCD: 3
+  attackTimer: 0
+  chaseDistance: 8
+  chaseDegree: 45
+  chaseTimer: 0
+  chaseTime: 3
+  retreatDistance: 1.5
   reachedDistance: 1
   idleMin: 2
   idleMax: 5
@@ -870,8 +881,19 @@ MonoBehaviour:
   anim: {fileID: 967259006}
   agent: {fileID: 0}
   player: {fileID: 0}
+  eyePoint: {fileID: 0}
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
   patrolRadius: 8
   attackDistance: 2.5
+  attackCD: 3
+  attackTimer: 0
+  chaseDistance: 8
+  chaseDegree: 45
+  chaseTimer: 0
+  chaseTime: 3
+  retreatDistance: 1.5
   reachedDistance: 0.6
   idleMin: 2
   idleMax: 5

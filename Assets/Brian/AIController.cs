@@ -5,16 +5,43 @@ public class AIController : MonoBehaviour
     public Animator anim;
     public UnityEngine.AI.NavMeshAgent agent;
     public Transform player;
+    public Transform eyePoint;
+    [SerializeField] private LayerMask obstacleMask;
+
+    [Header("Patrol")]
     public float patrolRadius = 8f;
+    Vector3 patrolDestination;
+
+    [Header("Attack")]
     public float attackDistance = 2.5f;
+    public float attackCD = 1.5f;
+    public float attackRecover = 2f;
+    public float attackTimer;
+
+    [Header("Chase")]
+    public float chaseDistance = 16f;
+    public float chaseDegree = 105f;
+    public float chaseTimer;
+    public float chaseTime = 3f;
+
+
+    [Header("Retreat")]
+    public float retreatDistance = 1.8f;
+    public float retreatSpeed = 3f;
     public float reachedDistance = 0.6f;
+    [Header("Idle")]
     public float idleMin = 2f;
     public float idleMax = 5f;
-
     public float idleTimer;
     private IState currentState;
 
-    Vector3 patrolDestination;
+    [Header("Mob Basic Setting")]
+    public int health = 10;
+    public int damage = 1;
+    public GameObject dropMask;
+    public EnemyBehaviour enemyBehaviour;
+
+
 
     void Start()
     {
@@ -27,25 +54,60 @@ public class AIController : MonoBehaviour
             }
         }
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        ChangeState(new WalkState());
+        enemyBehaviour = GetComponent<EnemyBehaviour>();
+        ChangeState(new IdleState());
     }
 
     void Update()
     {
-        if (player != null && Vector3.Distance(transform.position, player.position) <= attackDistance)
+        if(currentState is DeathState)
         {
-            //if not already in AttackState, switch to it
-            if (!(currentState is AttackState))
+            return;
+        }
+
+        if(attackTimer >= 0)
+        {
+            attackTimer -= Time.deltaTime;
+        }
+        if (player == null)
+        {
+            if(currentState is not WalkState && currentState is not IdleState)
             {
-                ChangeState(new AttackState());
+                ChangeState(new IdleState());
             }
         }
         else
         {
-            //if in AttackState, switch to WalkState
-            if (currentState is AttackState)
+            Vector3 direction = player.position - transform.position;
+            direction.y = 0;
+            float distance = direction.magnitude;
+            bool inSight = distance <= chaseDistance && Vector3.Angle(direction, transform.forward) <= chaseDegree && HasLineOfSightToPlayer(direction, distance);
+            if( currentState is WalkState || currentState is IdleState)
             {
-                ChangeState(new WalkState());
+                if(inSight)
+                {
+                    ChangeState(new ChaseState());
+                    chaseTimer = 0;
+                }
+            }
+            else
+            {
+                if(inSight){
+                    chaseTimer = 0;
+                    if(distance < attackDistance && attackTimer <= 0f)
+                    {
+                        attackTimer = attackCD + attackRecover;
+                        ChangeState(new AttackState());
+                    }
+                }
+                else
+                {
+                    chaseTimer += Time.deltaTime;
+                    if(chaseTimer >= chaseTime)
+                    {
+                        ChangeState(new IdleState());
+                    }
+                }
             }
         }
 
@@ -97,11 +159,52 @@ public class AIController : MonoBehaviour
         return false;
     }
 
+    bool HasLineOfSightToPlayer(Vector3 direction, float distance)
+    {
+        Vector3 origin = eyePoint != null ? eyePoint.position : transform.position + Vector3.up;
+
+        if (Physics.Raycast(origin, direction.normalized, out RaycastHit hit, distance, obstacleMask))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    //====Health System====
+
+    public void Hurt(int damage)
+    {
+        if(currentState is DeathState)
+        {
+            return;
+        }
+        health -= damage;
+        if(health <= 0)
+        {
+            ChangeState(new DeathState());
+        }
+    }
+
+    public void GenerateMask()
+    {
+        if(dropMask != null)
+        {
+            Instantiate(dropMask, transform.position + Vector3.up * 0.5f, transform.rotation).GetComponent<MaskBehaviour>().SetType(enemyBehaviour.GetTypeID());
+        }
+    }
+
     //====Gizmos====
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, attackDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, chaseDistance);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, retreatDistance);
     }
 }

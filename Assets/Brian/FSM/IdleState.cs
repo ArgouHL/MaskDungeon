@@ -7,6 +7,7 @@ public class IdleState : IState
         controller.idleTimer = Random.Range(controller.idleMin, controller.idleMax);
         controller.anim.SetBool("isIdle", true);
         controller.agent.isStopped = true;
+
     }
 
     public void Update(AIController controller)

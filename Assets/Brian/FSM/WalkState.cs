@@ -7,6 +7,7 @@ public class WalkState : IState
         controller.anim.SetBool("isWalking", true);
         controller.agent.isStopped = false;
         controller.SetNewPatrolDestination();
+
     }
 
     public void Update(AIController controller)
