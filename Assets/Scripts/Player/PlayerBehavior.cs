@@ -32,48 +32,26 @@ public class PlayerBehavior : MonoBehaviour
         // 攻擊時不能移動也不能旋轉
         if (attackManager.IsAttacking) return;
 
-        // 檢測是否按下方向鍵，設定目標旋轉
-        if (Keyboard.current.dKey.wasPressedThisFrame)
+        // 檢測按鍵輸入（支持八方位）
+        moveInput = new Vector2(
+            Keyboard.current.dKey.isPressed ? 1 : (Keyboard.current.aKey.isPressed ? -1 : 0),
+            Keyboard.current.wKey.isPressed ? 1 : (Keyboard.current.sKey.isPressed ? -1 : 0)
+        );
+
+        // 計算移動和旋轉方向（八方位）
+        if (moveInput != Vector2.zero)
         {
-            targetRotation = Quaternion.LookRotation(new Vector3(1, 0, -1).normalized); // 135度
-            hasTargetRotation = true;
-        }
-        else if (Keyboard.current.aKey.wasPressedThisFrame)
-        {
-            targetRotation = Quaternion.LookRotation(new Vector3(-1, 0, 1).normalized); // -45度
-            hasTargetRotation = true;
-        }
-        else if (Keyboard.current.wKey.wasPressedThisFrame)
-        {
-            targetRotation = Quaternion.LookRotation(new Vector3(1, 0, 1).normalized); // 45度
-            hasTargetRotation = true;
-        }
-        else if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            targetRotation = Quaternion.LookRotation(new Vector3(-1, 0, -1).normalized); // 225度
-            hasTargetRotation = true;
-        }
-        // 如果沒有新按鍵但有按鍵被按住，且沒有目標旋轉，則設定目標旋轉
-        else if (!hasTargetRotation)
-        {
-            if (Keyboard.current.dKey.isPressed)
+            moveDirection = new Vector3(moveInput.x + moveInput.y, 0f, -moveInput.x + moveInput.y).normalized;
+
+            // 檢測是否剛按下按鍵或沒有目標旋轉
+            bool keyPressed = Keyboard.current.wKey.wasPressedThisFrame ||
+                             Keyboard.current.sKey.wasPressedThisFrame ||
+                             Keyboard.current.aKey.wasPressedThisFrame ||
+                             Keyboard.current.dKey.wasPressedThisFrame;
+
+            if (keyPressed || !hasTargetRotation)
             {
-                targetRotation = Quaternion.LookRotation(new Vector3(1, 0, -1).normalized); // 135度
-                hasTargetRotation = true;
-            }
-            else if (Keyboard.current.aKey.isPressed)
-            {
-                targetRotation = Quaternion.LookRotation(new Vector3(-1, 0, 1).normalized); // -45度
-                hasTargetRotation = true;
-            }
-            else if (Keyboard.current.wKey.isPressed)
-            {
-                targetRotation = Quaternion.LookRotation(new Vector3(1, 0, 1).normalized); // 45度
-                hasTargetRotation = true;
-            }
-            else if (Keyboard.current.sKey.isPressed)
-            {
-                targetRotation = Quaternion.LookRotation(new Vector3(-1, 0, -1).normalized); // 225度
+                targetRotation = Quaternion.LookRotation(moveDirection);
                 hasTargetRotation = true;
             }
         }
@@ -94,15 +72,6 @@ public class PlayerBehavior : MonoBehaviour
                 hasTargetRotation = false;
             }
         }
-
-        // 檢測按鍵輸入進行移動
-        moveInput = new Vector2(
-            Keyboard.current.dKey.isPressed ? 1 : (Keyboard.current.aKey.isPressed ? -1 : 0),
-            Keyboard.current.wKey.isPressed ? 1 : (Keyboard.current.sKey.isPressed ? -1 : 0)
-        );
-
-        // 將移動方向旋轉45度，與旋轉方向一致
-        moveDirection = new Vector3(moveInput.x + moveInput.y, 0f, -moveInput.x + moveInput.y).normalized;
 
         // 如果有方向輸入，使用 CharacterController 進行移動
         if (moveInput != Vector2.zero)
