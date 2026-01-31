@@ -8,11 +8,19 @@ public class SpawnManager : MonoBehaviour
     [Tooltip("Enemy prefabs (1-based kinds as strings in SpawnPoint.kind)")]
     public GameObject[] EnemyList;
 
+    public int enemyCount;
+
     // Spawn environment prefabs for every generated room according to the RoomControl.RoomStep
     // roomStep == 0 -> skip
     // roomStep == 1 or 2 -> use roomEnv[0]
     // roomStep == 3 or 4 -> use roomEnv[1]
     // otherwise -> use roomEnv[2]
+
+    void Start()
+    {
+        enemyCount = 0;
+    }
+
     public void SpawnEnv()
     {
         var roomGen = FindObjectOfType<RoomGenerator>();
@@ -73,45 +81,49 @@ public class SpawnManager : MonoBehaviour
         // Instantiate the chosen room-enemy prefab at the provided position
         GameObject spawnedRoomEnemy = Instantiate(roomEnemy[idx], position, Quaternion.identity);
 
-        // Look for a SpawnPoint component in the spawned prefab's children
-        SpawnPoint sp = spawnedRoomEnemy.GetComponentInChildren<SpawnPoint>();
-        if (sp == null)
+        // Look for all SpawnPoint components in the spawned prefab's children
+        var spawnPoints = spawnedRoomEnemy.GetComponentsInChildren<SpawnPoint>();
+        if (spawnPoints == null || spawnPoints.Length == 0)
         {
-            Debug.LogWarning($"SpawnEnemy: no SpawnPoint found in spawned prefab '{spawnedRoomEnemy.name}'");
+            Debug.LogWarning($"SpawnEnemy: no SpawnPoint(s) found in spawned prefab '{spawnedRoomEnemy.name}'");
             return;
         }
 
-        // Use the spawnList on the SpawnPoint to decide which EnemyList prefab(s) to spawn and how many
-        if (sp.spawnList == null) return;
-
-        foreach (var entry in sp.spawnList)
+        foreach (var sp in spawnPoints)
         {
-            if (entry == null) continue;
-            if (string.IsNullOrWhiteSpace(entry.kind)) continue;
+            if (sp == null) continue;
+            if (sp.spawnList == null) continue;
 
-            // The user expects kind to be a 1-based index in string form. Try parse.
-            if (!int.TryParse(entry.kind, out int kind1Based))
+            foreach (var entry in sp.spawnList)
             {
-                Debug.LogWarning($"SpawnEnemy: could not parse SpawnEntry.kind='{entry.kind}' to int. Skipping.");
-                continue;
-            }
+                if (entry == null) continue;
+                if (string.IsNullOrWhiteSpace(entry.kind)) continue;
 
-            int enemyIndex = kind1Based - 1;
-            if (enemyIndex < 0 || enemyIndex >= EnemyList.Length)
-            {
-                Debug.LogWarning($"SpawnEnemy: computed enemy index {enemyIndex} out of range for EnemyList.");
-                continue;
-            }
+                // The user expects kind to be a 1-based index in string form. Try parse.
+                if (!int.TryParse(entry.kind, out int kind1Based))
+                {
+                    Debug.LogWarning($"SpawnEnemy: could not parse SpawnEntry.kind='{entry.kind}' to int. Skipping.");
+                    continue;
+                }
 
-            GameObject enemyPrefab = EnemyList[enemyIndex];
-            int spawnCount = Mathf.Max(0, entry.number);
+                int enemyIndex = kind1Based - 1;
+                if (enemyIndex < 0 || enemyIndex >= EnemyList.Length)
+                {
+                    Debug.LogWarning($"SpawnEnemy: computed enemy index {enemyIndex} out of range for EnemyList.");
+                    continue;
+                }
 
-            for (int i = 0; i < spawnCount; i++)
-            {
-                // Random position within the spawn point's range on XZ plane
-                Vector2 r = Random.insideUnitCircle * Mathf.Max(0f, sp.range);
-                Vector3 pos = sp.transform.position + new Vector3(r.x, 0f, r.y);
-                Instantiate(enemyPrefab, pos, Quaternion.identity, spawnedRoomEnemy.transform);
+                GameObject enemyPrefab = EnemyList[enemyIndex];
+                int spawnCount = Mathf.Max(0, entry.number);
+
+                for (int i = 0; i < spawnCount; i++)
+                {
+                    // Random position within the spawn point's range on XZ plane
+                    Vector2 r = Random.insideUnitCircle * Mathf.Max(0f, sp.range);
+                    Vector3 pos = sp.transform.position + new Vector3(r.x, 0f, r.y);
+                    Instantiate(enemyPrefab, pos, Quaternion.identity, spawnedRoomEnemy.transform);
+                    enemyCount++;
+                }
             }
         }
     }

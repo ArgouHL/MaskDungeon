@@ -30,6 +30,26 @@ public class RoomControl : MonoBehaviour
         // may add this RoomControl to its list after Awake runs.
         roomStart += HandleRoomStart;
     }
+
+    void Update()
+    {
+        if(isBattle)
+        {
+            var spawnMgr = FindObjectOfType<SpawnManager>();
+            if (spawnMgr == null)
+            {
+                Debug.LogWarning($"Update: SpawnManager not found for room '{gameObject.name}'");
+                return;
+            }
+
+            if (spawnMgr.enemyCount <= 0)
+            {
+                isBattle = false;
+                RoomEnd();
+            }
+        }  
+    }
+
     internal void RoomStart()
     {
         DoorClose();
@@ -68,7 +88,6 @@ public class RoomControl : MonoBehaviour
 
     internal void RoomEnd()
     {
-        isBattle = false;
         DoorOpen(true);
     }
 
