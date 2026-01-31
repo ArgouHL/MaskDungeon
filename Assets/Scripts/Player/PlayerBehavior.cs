@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    public int attackType { get; set; } = 0;
+
     [Header("移动设置")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 720f;
@@ -107,14 +109,8 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            PerformAttack(0);
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            PerformAttack(1);
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            PerformAttack(2);
+        if (Input.GetKeyDown(KeyCode.Space))
+            PerformAttack(attackType);
     }
 
     private void PerformAttack(int index)
@@ -147,6 +143,9 @@ public class PlayerBehavior : MonoBehaviour
             checkAttack = attackObject.transform.GetChild(0).GetComponent<CheckAttack>();
         }
         if (checkAttack != null)
+        {
+            checkAttack.SetPlayer(this);
             checkAttack.attackSource = source;
+        }
     }
 }
