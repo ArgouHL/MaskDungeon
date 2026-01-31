@@ -22,6 +22,8 @@ public class RoomGenerator : MonoBehaviour
     // 儲存生成的物件，方便最後替換終點
     private Dictionary<Vector2Int, GameObject> spawnedRoomObjects = new Dictionary<Vector2Int, GameObject>();
     private List<RoomControl> roomControls = new();
+    private object step;
+
     private void Start()
     {
         GenRoom();
@@ -65,7 +67,7 @@ public class RoomGenerator : MonoBehaviour
 
                     spawnedRoomObjects[currentHead].GetComponent<RoomControl>().SetConnectDoor(way);
                     // 先都生成普通房間
-                    spawnedRoomObjects[nextPos] = CreateRoomObject(gameRoom, nextPos,way);
+                    spawnedRoomObjects[nextPos] = CreateRoomObject(gameRoom, nextPos,way, distanceMap[nextPos]);
 
                     currentHead = nextPos;
                 }
@@ -135,10 +137,11 @@ public class RoomGenerator : MonoBehaviour
         roomControls.Add(go.GetComponent<RoomControl>());
         return go;
     }
-    private GameObject CreateRoomObject(GameObject prefab, Vector2Int coord,Way way)
+    private GameObject CreateRoomObject(GameObject prefab, Vector2Int coord,Way way,int step)
     {
         GameObject go = CreateRoomObject(prefab, coord);
        go.GetComponent<RoomControl>().SetConnectDoor(ReverseWay(way));
+        go.GetComponent<RoomControl>().SetRoomStep(step);
         return go;
     }
 
