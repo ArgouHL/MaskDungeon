@@ -48,53 +48,30 @@ public class SpawnManager : MonoBehaviour
     }
 
     // Spawn enemy-room prefabs and then spawn enemies inside them using attached SpawnPoint
-    public void SpawnEnemy(Vector3 position, int number)
+    // The second argument is the roomStep (distance/level), not a room list index.
+    public void SpawnEnemy(Vector3 position, int roomStep)
     {
-        var roomGen = FindObjectOfType<RoomGenerator>();
-        if (roomGen == null)
-        {
-            Debug.LogWarning("SpawnEnemy: RoomGenerator not found in scene.");
-            return;
-        }
-
-        var rooms = roomGen.GetRoomList();
         if (roomEnemy == null || roomEnemy.Length == 0)
         {
             Debug.LogWarning("SpawnEnemy: roomEnemy array is empty.");
             return;
         }
 
-        // Use the specific room at index `number` instead of iterating all rooms
-        if (rooms == null || rooms.Count == 0)
-        {
-            Debug.LogWarning("SpawnEnemy: room list is empty.");
-            return;
-        }
-
-        if (number < 0 || number >= rooms.Count)
-        {
-            Debug.LogWarning($"SpawnEnemy: requested room index {number} is out of range (0..{rooms.Count - 1}).");
-            return;
-        }
-
-        var rc = rooms[number];
-        if (rc == null)
-        {
-            Debug.LogWarning($"SpawnEnemy: room at index {number} is null.");
-            return;
-        }
-
-        int step = rc.RoomStep;
+        int step = roomStep;
         if (step == 0) return;
 
         int idx = 2; // default
         if (step == 1 || step == 2) idx = 0;
         else if (step == 3 || step == 4) idx = 1;
 
-        if (idx < 0 || idx >= roomEnemy.Length) return;
+        if (idx < 0 || idx >= roomEnemy.Length)
+        {
+            Debug.LogWarning($"SpawnEnemy: computed prefab index {idx} is out of range for roomEnemy.");
+            return;
+        }
 
-        Vector3 spawnPos = rc.GetRoomCentre();
-        GameObject spawnedRoomEnemy = Instantiate(roomEnemy[idx], spawnPos, Quaternion.identity, rc.transform);
+        // Instantiate the chosen room-enemy prefab at the provided position
+        GameObject spawnedRoomEnemy = Instantiate(roomEnemy[idx], position, Quaternion.identity);
 
         // Look for a SpawnPoint component in the spawned prefab's children
         SpawnPoint sp = spawnedRoomEnemy.GetComponentInChildren<SpawnPoint>();

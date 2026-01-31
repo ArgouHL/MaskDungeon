@@ -23,7 +23,10 @@ public class RoomControl : MonoBehaviour
 
     private void Awake()
     {
-        
+        // Subscribe a handler that will notify the SpawnManager when this room starts.
+        // We compute the room index at invocation time because the RoomGenerator
+        // may add this RoomControl to its list after Awake runs.
+        roomStart += HandleRoomStart;
     }
     internal void RoomStart()
     {
@@ -64,6 +67,25 @@ public class RoomControl : MonoBehaviour
     internal void RoomEnd()
     {
         DoorOpen(true);
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe to avoid leaking delegates
+        roomStart -= HandleRoomStart;
+    }
+
+    private void HandleRoomStart(int level)
+    {
+        // Find required managers
+        var spawnMgr = FindObjectOfType<SpawnManager>();
+        if (spawnMgr == null)
+        {
+            Debug.LogWarning($"HandleRoomStart: SpawnManager not found for room '{gameObject.name}'");
+            return;
+        }
+
+        spawnMgr.SpawnEnemy(transform.position, level);
     }
     private void DoorClose()
     {
