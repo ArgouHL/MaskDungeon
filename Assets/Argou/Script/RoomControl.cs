@@ -50,12 +50,12 @@ public class RoomControl : MonoBehaviour
             default:
                 break;
         }
-        DoorOpen();
+        DoorOpen(true);
     }
 
     internal void RoomEnd()
     {
-        DoorOpen();
+        DoorOpen(true);
     }
     private void DoorClose()
     {
@@ -78,24 +78,24 @@ public class RoomControl : MonoBehaviour
         }
     }
 
-    private void DoorOpen()
+    private void DoorOpen(bool showWay)
     {
         if (!upDoorBlock)
         {
-            upDoor.Open();
+            upDoor.Open(showWay);
         }
         if (!downDoorBlock)
         {
-            downDoor.Open();
+            downDoor.Open(showWay);
         }
         if (!leftDoorBlock)
         {
-            leftDoor.Open();
+            leftDoor.Open(showWay);
         }
 
         if (!rightDoorBlock)
         {
-            rightDoor.Open();
+            rightDoor.Open(showWay);
         }
     }
 
