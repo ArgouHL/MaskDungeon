@@ -21,7 +21,7 @@ public class RoomGenerator : MonoBehaviour
     private Dictionary<Vector2Int, int> distanceMap = new Dictionary<Vector2Int, int>();
     // 儲存生成的物件，方便最後替換終點
     private Dictionary<Vector2Int, GameObject> spawnedRoomObjects = new Dictionary<Vector2Int, GameObject>();
-
+    private List<RoomControl> roomControls = new();
     private void Start()
     {
         GenRoom();
@@ -34,7 +34,7 @@ public class RoomGenerator : MonoBehaviour
         roomSet.Add(startPos);
         distanceMap[startPos] = 0;
         spawnedRoomObjects[startPos] = CreateRoomObject(startRoom, startPos);
-
+        
         // 2. 生成所有房間 (包含分支)
         int attempts = 0;
         while (roomSet.Count < totalRoomCount && attempts < 1000)
@@ -132,6 +132,7 @@ public class RoomGenerator : MonoBehaviour
         Vector3 worldPos = new Vector3(coord.x * roomSize.x, 0, coord.y * roomSize.y);
         GameObject go = Instantiate(prefab, worldPos, Quaternion.identity, transform);
         go.name = $"Room_{coord.x}_{coord.y}_Dist_{distanceMap[coord]}";
+        roomControls.Add(go.GetComponent<RoomControl>());
         return go;
     }
     private GameObject CreateRoomObject(GameObject prefab, Vector2Int coord,Way way)
@@ -163,6 +164,11 @@ public class RoomGenerator : MonoBehaviour
         return rWay;
     }
     // 在 Scene 視窗標示步數與路線
+    internal List<RoomControl> GetRoomList()
+    {
+        return roomControls;
+    }
+
     private void OnDrawGizmos()
     {
         if (distanceMap == null) return;

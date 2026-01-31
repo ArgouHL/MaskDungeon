@@ -99,13 +99,18 @@ public class RoomControl : MonoBehaviour
         }
     }
 
-    public bool[] GetDoorStatus()
+    internal bool[] GetDoorStatus()
     {
       
         return new bool[] { !upDoorBlock, !downDoorBlock, !leftDoorBlock, !rightDoorBlock };
     }
 
-    public void SetDoorStatus(bool[] status)
+    internal Vector3 GetRoomCentre()
+    {
+        return transform.position;
+    }
+
+    internal void SetDoorStatus(bool[] status)
     {
         if (status[0]) SetConnectDoor(Way.up);
         if (status[1]) SetConnectDoor(Way.down);
