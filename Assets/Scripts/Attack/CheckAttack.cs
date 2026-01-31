@@ -48,7 +48,7 @@ public class CheckAttack : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            player.attackType = other.GetComponent<MaskBehaviour>().GetType();
+            player.AddAttackType(other.GetComponent<MaskBehaviour>().GetType());
             Destroy(other.gameObject);
         }
         // 敵人的攻擊打到玩家
