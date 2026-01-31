@@ -11,7 +11,7 @@ public class PlayerBehavior : MonoBehaviour
 
     // 當前攻擊類型（陣列最後一個元素）
     public int CurrentAttackType => attackTypes[attackTypes.Count - 1];
-
+    [SerializeField] playerMask playerMask;
     [Header("移动设置")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 720f;
@@ -179,7 +179,7 @@ public class PlayerBehavior : MonoBehaviour
     public void AddAttackType(int newType)
     {
         attackTypes.Add(newType);
-        FindObjectOfType<playerMask>().ChangeMask(newType);
+        playerMask.ChangeMask(newType);
         Debug.Log($"獲得新攻擊類型: {newType}, 當前陣列: [{string.Join(", ", attackTypes)}]");
     }
 
@@ -191,7 +191,7 @@ public class PlayerBehavior : MonoBehaviour
             int removedType = attackTypes[attackTypes.Count - 1];
             attackTypes.RemoveAt(attackTypes.Count - 1);
             Debug.Log($"失去攻擊類型: {removedType}, 當前陣列: [{string.Join(", ", attackTypes)}]");
-            FindObjectOfType<playerMask>().ChangeMask(attackTypes[attackTypes.Count - 1]);
+            playerMask.ChangeMask(attackTypes[attackTypes.Count - 1]);
         }
         else
         {
