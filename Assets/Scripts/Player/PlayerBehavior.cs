@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,7 +15,7 @@ public class PlayerBehavior : MonoBehaviour
     [Header("攻击设置")]
     [SerializeField] private AttackPattern[] attackPatterns;
 
-    private Vector2 moveInput;
+    private Vector2 moveInput => InputManager.instance.input.Player.Move.ReadValue<Vector2>();
     private Vector3 moveDirection;
     private Quaternion targetRotation;
     private bool hasTargetRotation = false;
@@ -23,15 +24,31 @@ public class PlayerBehavior : MonoBehaviour
 
     CharacterController characterController;
 
+    
+
+
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
     }
 
+    private void OnEnable()
+    {
+        InputManager.instance.input.Player.Attack.performed += Attack;
+
+    }
+
+    private void OnDisable()
+    {
+        InputManager.instance.input.Player.Attack.performed -= Attack;
+
+    }
+
     void Update()
     {
         Move();
-        Attack();
+       // Attack();
     }
 
     private void Move()
@@ -56,10 +73,10 @@ public class PlayerBehavior : MonoBehaviour
         }
 
         // 檢測按鍵輸入（支持八方位）
-        moveInput = new Vector2(
-            Keyboard.current.dKey.isPressed ? 1 : (Keyboard.current.aKey.isPressed ? -1 : 0),
-            Keyboard.current.wKey.isPressed ? 1 : (Keyboard.current.sKey.isPressed ? -1 : 0)
-        );
+        //moveInput = new Vector2(
+        //    Keyboard.current.dKey.isPressed ? 1 : (Keyboard.current.aKey.isPressed ? -1 : 0),
+        //    Keyboard.current.wKey.isPressed ? 1 : (Keyboard.current.sKey.isPressed ? -1 : 0)
+        //);
 
         // 計算移動和旋轉方向（八方位）
         if (moveInput != Vector2.zero)
@@ -67,12 +84,12 @@ public class PlayerBehavior : MonoBehaviour
             moveDirection = new Vector3(moveInput.x + moveInput.y, 0f, -moveInput.x + moveInput.y).normalized;
 
             // 檢測是否剛按下按鍵或沒有目標旋轉
-            bool keyPressed = Keyboard.current.wKey.wasPressedThisFrame ||
-                             Keyboard.current.sKey.wasPressedThisFrame ||
-                             Keyboard.current.aKey.wasPressedThisFrame ||
-                             Keyboard.current.dKey.wasPressedThisFrame;
+            //bool keyPressed = Keyboard.current.wKey.wasPressedThisFrame ||
+            //                 Keyboard.current.sKey.wasPressedThisFrame ||
+            //                 Keyboard.current.aKey.wasPressedThisFrame ||
+            //                 Keyboard.current.dKey.wasPressedThisFrame;
 
-            if (keyPressed || !hasTargetRotation)
+            if (!hasTargetRotation)
             {
                 targetRotation = Quaternion.LookRotation(moveDirection);
                 hasTargetRotation = true;
@@ -107,9 +124,9 @@ public class PlayerBehavior : MonoBehaviour
         characterController.Move(finalMove);
     }
 
-    private void Attack()
+    private void Attack(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+       
             PerformAttack(attackType);
     }
 
