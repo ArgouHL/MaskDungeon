@@ -635,7 +635,7 @@ MonoBehaviour:
   idleTimer: 0
   health: 15
   damage: 1
-  dropMask: {fileID: 6042705933244592417, guid: b76ca7dd2d773624bb2428e6d04e3076, type: 3}
+  dropMask: {fileID: 6042705933244592417, guid: 0f874acfc6a15354eb58ddcd4e64b97b, type: 3}
   enemyBehaviour: {fileID: 0}
 --- !u!195 &3080729231108090079
 NavMeshAgent:

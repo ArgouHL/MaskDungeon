@@ -183,6 +183,8 @@ public class AIController : MonoBehaviour
         if(health <= 0)
         {
             ChangeState(new DeathState());
+            agent.enabled = false;
+            GetComponent<Collider>().enabled = false;
         }
     }
 
@@ -190,6 +192,7 @@ public class AIController : MonoBehaviour
     {
         if(dropMask != null)
         {
+            FindObjectOfType<SpawnManager>().enemyCount--;
             Instantiate(dropMask, transform.position + Vector3.up * 0.5f, transform.rotation).GetComponent<MaskBehaviour>().SetType(enemyBehaviour.GetTypeID());
         }
     }
