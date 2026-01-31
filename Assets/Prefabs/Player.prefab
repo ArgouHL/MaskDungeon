@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4332656535983336960}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,14 +124,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 5
   rotationSpeed: 720
+  gravity: -9.81
   attackPatterns:
   - atkPrefab: {fileID: 2973084724398799620, guid: 321772b8722122e439d49fe1bc7a5f40, type: 3}
+    aimPrefab: {fileID: 0}
     point: {x: 0, y: 0, z: 1}
     atkTime: 0.5
   - atkPrefab: {fileID: 7371708411764677414, guid: 67e0b41ead1efa140a2a211ce5bd17d2, type: 3}
+    aimPrefab: {fileID: 0}
     point: {x: 0, y: 0, z: 1}
     atkTime: 0.5
   - atkPrefab: {fileID: 8884777731559117836, guid: e1b4f439a63b3c242b6f0665912dc170, type: 3}
+    aimPrefab: {fileID: 0}
     point: {x: 0, y: 0, z: 0}
     atkTime: 0.25
 --- !u!143 &4332656535983336960
