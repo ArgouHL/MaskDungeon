@@ -51,6 +51,6 @@ public class PlayerMovement : MonoBehaviour
     private void Attack ()
     {
         if (Input.GetKeyDown (KeyCode.Space))
-            attackManager.Attack();
+            attackManager.Attack(0);
     }
 }
