@@ -1,30 +1,36 @@
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
+public class AttackPattern
+{
+    public GameObject atkPrefab;
+    public Vector3 point;
+    public float atkTime;
+}
+
 public class AttackManager : MonoBehaviour
 {
-    public Transform attackPoint;
-    public GameObject attackEffect;
+    public AttackPattern [] attackPattern;
 
     private bool isAttacking = false;
     public bool IsAttacking => isAttacking;
 
-    public void Attack()
+    public void Attack(int index)
     {
         if (isAttacking) return;
 
-        StartCoroutine(AttackCoroutine());
+        StartCoroutine(AttackCoroutine(index));
     }
 
-    private IEnumerator AttackCoroutine()
+    private IEnumerator AttackCoroutine(int index)
     {
         isAttacking = true;
 
-        GameObject atk = Instantiate(attackEffect, attackPoint);
+        GameObject atk = Instantiate(attackPattern[index].atkPrefab , transform);
+        atk.transform.localPosition = attackPattern[index].point;
+        yield return new WaitForSeconds(attackPattern[index].atkTime);
 
-        yield return new WaitForSeconds(0.5f);
-
-        Destroy(atk);
         isAttacking = false;
     }
 }
