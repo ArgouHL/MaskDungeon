@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class BulletAttack : MonoBehaviour
 {
@@ -7,9 +6,10 @@ public class BulletAttack : MonoBehaviour
 
     private void Start()
     {
-        Destroy(gameObject , 0.5f);
+        Destroy(gameObject, 0.5f);
     }
-    void Update ()
+
+    void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
