@@ -5,6 +5,7 @@ using UnityEngine;
 public class AttackPattern
 {
     public GameObject atkPrefab;
+    public GameObject aimPrefab;
     public Vector3 point;
     public float atkTime;
 }

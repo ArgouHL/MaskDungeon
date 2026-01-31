@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerBehavior : MonoBehaviour
@@ -7,17 +8,19 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 720f;
 
+    [Header("攻击设置")]
+    [SerializeField] private AttackPattern[] attackPatterns;
+
     private Vector2 moveInput;
     private Vector3 moveDirection;
     private Quaternion targetRotation;
     private bool hasTargetRotation = false;
+    private bool isAttacking = false;
 
-    AttackManager attackManager;
     CharacterController characterController;
 
     private void Awake()
     {
-        attackManager = GetComponent<AttackManager>();
         characterController = GetComponent<CharacterController>();
     }
 
@@ -30,7 +33,7 @@ public class PlayerBehavior : MonoBehaviour
     private void Move()
     {
         // 攻擊時不能移動也不能旋轉
-        if (attackManager.IsAttacking) return;
+        if (isAttacking) return;
 
         // 檢測按鍵輸入（支持八方位）
         moveInput = new Vector2(
@@ -83,12 +86,30 @@ public class PlayerBehavior : MonoBehaviour
     private void Attack()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            attackManager.Attack(0);
+            PerformAttack(0);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            attackManager.Attack(1);
+            PerformAttack(1);
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            attackManager.Attack(2);
+            PerformAttack(2);
+    }
+
+    private void PerformAttack(int index)
+    {
+        if (isAttacking || index >= attackPatterns.Length) return;
+
+        StartCoroutine(AttackCoroutine(index));
+    }
+
+    private IEnumerator AttackCoroutine(int index)
+    {
+        isAttacking = true;
+
+        GameObject atk = Instantiate(attackPatterns[index].atkPrefab, transform);
+        atk.transform.localPosition = attackPatterns[index].point;
+        yield return new WaitForSeconds(attackPatterns[index].atkTime);
+
+        isAttacking = false;
     }
 }
