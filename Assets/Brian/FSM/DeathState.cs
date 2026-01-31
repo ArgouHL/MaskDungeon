@@ -8,6 +8,7 @@ public class DeathState : IState
         controller.agent.isStopped = true;
         controller.agent.ResetPath();
         controller.agent.velocity = Vector3.zero;
+        controller.GenerateMask();
     }
 
     public void Update(AIController controller)

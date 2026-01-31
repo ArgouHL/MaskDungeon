@@ -181,6 +181,14 @@ public class AIController : MonoBehaviour
         }
     }
 
+    public void GenerateMask()
+    {
+        if(dropMask != null)
+        {
+            Instantiate(dropMask, transform.position, transform.rotation);
+        }
+    }
+
     //====Gizmos====
 
     void OnDrawGizmos()
