@@ -183,6 +183,8 @@ public class AIController : MonoBehaviour
         if(health <= 0)
         {
             ChangeState(new DeathState());
+            agent.enabled = false;
+            GetComponent<Collider>().enabled = false;
         }
     }
 
