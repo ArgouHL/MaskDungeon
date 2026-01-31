@@ -34,10 +34,10 @@ public class CheckAttack : MonoBehaviour
             }
 
             EnemyBehaviour enemy = other.GetComponent<EnemyBehaviour>();
-            if (enemy != null)
+            if (enemy != null && player != null)
             {
-                int id = enemy.GetTypeID();
-                player.attackType = id;
+                int enemyTypeID = enemy.GetTypeID();
+                player.AddAttackType(enemyTypeID); // 獲得敵人的攻擊類型
                 Destroy(other.gameObject);
             }
         }
@@ -50,6 +50,13 @@ public class CheckAttack : MonoBehaviour
             if (destroyOnHit)
             {
                 Destroy(gameObject);
+            }
+
+            // 玩家失去最後一個攻擊類型
+            PlayerBehavior hitPlayer = other.GetComponent<PlayerBehavior>();
+            if (hitPlayer != null)
+            {
+                hitPlayer.RemoveLastAttackType();
             }
         }
     }
