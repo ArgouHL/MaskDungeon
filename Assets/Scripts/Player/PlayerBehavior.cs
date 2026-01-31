@@ -48,8 +48,10 @@ public class PlayerBehavior : MonoBehaviour
 
     void Update()
     {
+        if (!Menu.gameStartBool)
+            return;
+
         Move();
-       // Attack();
     }
 
     private void Move()
@@ -127,6 +129,9 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Attack(InputAction.CallbackContext context)
     {
+        if (!Menu.gameStartBool)
+            return;
+
         PerformAttack(CurrentAttackType);
     }
 
@@ -184,6 +189,7 @@ public class PlayerBehavior : MonoBehaviour
         }
         else
         {
+            Menu.instance.GameOverObj.SetActive(true);
             Debug.Log("你死了");
         }
     }
