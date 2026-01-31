@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CheckAttack : MonoBehaviour
 {
+    private PlayerBehavior player;
+
     [Header("攻擊來源")]
     public string attackSource; // "Player" 或 "Enemy"
 
@@ -10,6 +12,11 @@ public class CheckAttack : MonoBehaviour
     public bool destroyOnHit = false;
 
     private bool hasHit = false;
+
+    public void SetPlayer (PlayerBehavior player)
+    {
+        this.player = player;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,6 +31,14 @@ public class CheckAttack : MonoBehaviour
             if (destroyOnHit)
             {
                 Destroy(gameObject);
+            }
+
+            EnemyBehaviour enemy = other.GetComponent<EnemyBehaviour>();
+            if (enemy != null)
+            {
+                int id = enemy.GetTypeID();
+                player.attackType = id;
+                Destroy(other.gameObject);
             }
         }
         // 敵人的攻擊打到玩家

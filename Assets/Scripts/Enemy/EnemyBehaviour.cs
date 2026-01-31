@@ -88,4 +88,9 @@ public class EnemyBehaviour : MonoBehaviour
         if (checkAttack != null)
             checkAttack.attackSource = source;
     }
+
+    public int GetTypeID ()
+    {
+        return typeID;
+    }
 }
