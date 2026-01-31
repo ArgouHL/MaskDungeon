@@ -21,6 +21,8 @@ public class RoomControl : MonoBehaviour
     internal delegate void RoomAction(int level);
     internal RoomAction roomStart;
 
+    bool isBattle = false;
+
     private void Awake()
     {
         // Subscribe a handler that will notify the SpawnManager when this room starts.
@@ -66,6 +68,7 @@ public class RoomControl : MonoBehaviour
 
     internal void RoomEnd()
     {
+        isBattle = false;
         DoorOpen(true);
     }
 
@@ -77,6 +80,9 @@ public class RoomControl : MonoBehaviour
 
     private void HandleRoomStart(int level)
     {
+        if(isBattle) return;
+
+        isBattle = true;
         // Find required managers
         var spawnMgr = FindObjectOfType<SpawnManager>();
         if (spawnMgr == null)
