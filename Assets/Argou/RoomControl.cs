@@ -11,15 +11,24 @@ public class RoomControl : MonoBehaviour
     bool leftDoorBlock = true;
     bool rightDoorBlock = true;
 
+    int roomStep =0;
+
     [SerializeField] DoorControl upDoor;
     [SerializeField] DoorControl downDoor;
     [SerializeField] DoorControl leftDoor;
     [SerializeField] DoorControl rightDoor;
 
+    internal delegate void RoomAction(int roomStep);
+    internal RoomAction roomStart;
 
+    private void Awake()
+    {
+        
+    }
     internal void RoomStart()
     {
         DoorClose();
+        roomStart?.Invoke(roomStep);
     }
 
     internal void SetConnectDoor(Way way)
