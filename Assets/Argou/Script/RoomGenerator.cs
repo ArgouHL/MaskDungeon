@@ -6,8 +6,8 @@ public class RoomGenerator : MonoBehaviour
 {
     [Header("房間設定")]
     [SerializeField] Vector2Int roomSize = new Vector2Int(10, 10);
-    [SerializeField] int totalRoomCount = 25;
-    [SerializeField] int maxDeadLength = 5;
+    [SerializeField] int targetMaxLength = 9;
+    [SerializeField] int maxDeadLength = 3;
 
     [Header("預製物")]
     [SerializeField] GameObject startRoom;
@@ -36,14 +36,14 @@ public class RoomGenerator : MonoBehaviour
         roomSet.Add(startPos);
         distanceMap[startPos] = 0;
         spawnedRoomObjects[startPos] = CreateRoomObject(startRoom, startPos);
-        
+       int currentMaxDistance = 0;
         // 2. 生成所有房間 (包含分支)
         int attempts = 0;
-        while (roomSet.Count < totalRoomCount && attempts < 1000)
+        while (currentMaxDistance < targetMaxLength && attempts < 2000)
         {
+            attempts++;
             Vector2Int branchParent = roomSet[Random.Range(0, roomSet.Count)];
 
-            // 如果起點已經有鄰居了，就不再從起點生長 (確保起點只有一個方向有房間)
             if (branchParent == startPos && GetNeighborCount(startPos) >= 1) continue;
 
             int deadLength = Random.Range(1, maxDeadLength + 1);
@@ -51,30 +51,34 @@ public class RoomGenerator : MonoBehaviour
 
             for (int i = 0; i < deadLength; i++)
             {
-                if (roomSet.Count >= totalRoomCount) break;
+                // 如果在伸長過程中已經達到目標長度，可以選擇停止
+                if (currentMaxDistance >= targetMaxLength) break;
 
                 Way way = RandomWay();
                 Vector2Int nextPos = GetNextCoordinate(currentHead, way);
 
-                // 檢查重複
                 if (!roomSet.Contains(nextPos))
                 {
                     roomSet.Add(nextPos);
                     parentMap[nextPos] = currentHead;
 
-                    // 計算步數：父節點步數 + 1
-                    distanceMap[nextPos] = distanceMap[currentHead] + 1;
+                    int newDist = distanceMap[currentHead] + 1;
+                    distanceMap[nextPos] = newDist;
 
+                    // 更新目前全地圖的最長距離
+                    if (newDist > currentMaxDistance)
+                    {
+                        currentMaxDistance = newDist;
+                    }
+
+                    // 設定門的連通
                     spawnedRoomObjects[currentHead].GetComponent<RoomControl>().SetConnectDoor(way);
-                    // 先都生成普通房間
-                    spawnedRoomObjects[nextPos] = CreateRoomObject(gameRoom, nextPos,way, distanceMap[nextPos]);
+                    spawnedRoomObjects[nextPos] = CreateRoomObject(gameRoom, nextPos, way, newDist);
 
                     currentHead = nextPos;
                 }
                 else break;
             }
-            attempts++;
-            spawnedRoomObjects[startPos].GetComponentInChildren<NavMeshSurface>().BuildNavMesh();
         }
 
         // 3. 找出最遠的房間並放置終點
@@ -188,7 +192,7 @@ public class RoomGenerator : MonoBehaviour
             // 畫出連接線
             if (parentMap.ContainsKey(pair.Key))
             {
-                Gizmos.color = Color.Lerp(Color.yellow, Color.red, pair.Value / (float)totalRoomCount);
+              //  Gizmos.color = Color.Lerp(Color.yellow, Color.red, pair.Value / (float)totalRoomCount);
                 Vector3 parentPos = new Vector3(parentMap[pair.Key].x * roomSize.x, 0.5f, parentMap[pair.Key].y * roomSize.y);
                 Vector3 currentPos = new Vector3(pair.Key.x * roomSize.x, 0.5f, pair.Key.y * roomSize.y);
                 Gizmos.DrawLine(parentPos, currentPos);

@@ -28,7 +28,7 @@ public class RoomControl : MonoBehaviour
     internal void RoomStart()
     {
         DoorClose();
-        roomStart?.Invoke(roomLevel);
+        roomStart?.Invoke(roomStep);
     }
 
     internal void SetRoomStep(int step)

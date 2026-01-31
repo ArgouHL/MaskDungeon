@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomSize: {x: 24, y: 24}
-  totalRoomCount: 16
+  targetMaxLength: 9
   maxDeadLength: 2
   startRoom: {fileID: 5440110738581736930, guid: 2099720916433d7439537c4ef63294a5, type: 3}
   gameRoom: {fileID: 5440110738581736930, guid: f3fb2c7d346bd724b829b37ecfbe83ae, type: 3}
