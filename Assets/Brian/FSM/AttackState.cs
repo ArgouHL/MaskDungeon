@@ -8,9 +8,8 @@ public class AttackState : IState
         controller.agent.isStopped = true;
         controller.agent.ResetPath();
         controller.agent.velocity = Vector3.zero;
-
-
-        // Debug.LogError("attack");
+        
+        // TODO: ATTACK
     }
 
     public void Update(AIController controller)
