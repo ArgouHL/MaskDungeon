@@ -110,6 +110,9 @@ public class RoomControl : MonoBehaviour
         return transform.position;
     }
 
+    // Expose the internal room step so other systems can react to room distance/step
+    public int RoomStep => roomStep;
+
     internal void SetDoorStatus(bool[] status)
     {
         if (status[0]) SetConnectDoor(Way.up);
