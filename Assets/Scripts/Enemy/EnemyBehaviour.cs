@@ -23,14 +23,18 @@ public class EnemyBehaviour : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, Player.position);
 
+        Debug.Log("Enemy Distance to Player: " + distance);
+
         if (distance <= attackRange && !isAttacking)
         {
+            Debug.Log("Enemy Start Attack");
             StartCoroutine(AttackCoroutine());
         }
 
         // 瞄準階段平滑旋轉看向玩家
         if (isAttacking && !isAimming)
         {
+            Debug.Log("Enemy Aimming");
             Vector3 direction = (Player.position - transform.position).normalized;
             direction.y = 0; // 保持在水平面上
 

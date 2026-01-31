@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
-  m_LocalScale: {x: 0.3, y: 1, z: 4}
+  m_LocalScale: {x: 0.30000004, y: 1, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5390617091839191625}
@@ -160,7 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5390617091839191625}
-  - component: {fileID: 1820866837808087543}
+  - component: {fileID: 7500097976530464353}
   m_Layer: 0
   m_Name: Type3Atk
   m_TagString: Untagged
@@ -184,7 +184,7 @@ Transform:
   - {fileID: 8628065211044219908}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 50, z: 0}
---- !u!114 &1820866837808087543
+--- !u!114 &7500097976530464353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,3 +196,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2615ea0fdda3f284589238c029007e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffectPrefab: {fileID: 3571495857438928545, guid: 4552647ac305adf47abde465e0bb3209, type: 3}

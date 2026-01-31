@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2525932558065297440}
   - component: {fileID: 6899492256520617732}
   - component: {fileID: 3813332407867707723}
-  - component: {fileID: 6751660658670646069}
   - component: {fileID: 4332656535983336960}
+  - component: {fileID: 2632760408093667784}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -110,34 +110,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6751660658670646069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8013750340394713471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 616d5b06dbf170e4d998978444285afc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 5
-  rotationSpeed: 720
-  gravity: -9.81
-  attackPatterns:
-  - atkPrefab: {fileID: 2973084724398799620, guid: 321772b8722122e439d49fe1bc7a5f40, type: 3}
-    aimPrefab: {fileID: 0}
-    point: {x: 0, y: 0, z: 1}
-    atkTime: 0.5
-  - atkPrefab: {fileID: 7371708411764677414, guid: 67e0b41ead1efa140a2a211ce5bd17d2, type: 3}
-    aimPrefab: {fileID: 0}
-    point: {x: 0, y: 0, z: 1}
-    atkTime: 0.5
-  - atkPrefab: {fileID: 8884777731559117836, guid: e1b4f439a63b3c242b6f0665912dc170, type: 3}
-    aimPrefab: {fileID: 0}
-    point: {x: 0, y: 0, z: 0}
-    atkTime: 0.25
 --- !u!143 &4332656535983336960
 CharacterController:
   m_ObjectHideFlags: 0
@@ -163,3 +135,31 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2632760408093667784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8013750340394713471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56e00e86940d7a74299093da70d48015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  rotationSpeed: 720
+  gravity: -9.81
+  attackPatterns:
+  - atkPrefab: {fileID: 2973084724398799620, guid: 7f668eeadda50af4e8b65433430e50cd, type: 3}
+    aimPrefab: {fileID: 0}
+    point: {x: 0, y: 0, z: 1}
+    atkTime: 0.5
+  - atkPrefab: {fileID: 7371708411764677414, guid: 67e0b41ead1efa140a2a211ce5bd17d2, type: 3}
+    aimPrefab: {fileID: 3051143225358776909, guid: b12c3f2385a81f8478d9a3181855ba3a, type: 3}
+    point: {x: 0, y: 0, z: 1}
+    atkTime: 0.5
+  - atkPrefab: {fileID: 8884777731559117836, guid: e1b4f439a63b3c242b6f0665912dc170, type: 3}
+    aimPrefab: {fileID: 6405727550456626678, guid: e3abb80aead29844e91e749f742e01c7, type: 3}
+    point: {x: 0, y: 0, z: 0}
+    atkTime: 0.25
