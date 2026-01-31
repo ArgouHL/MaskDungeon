@@ -16,7 +16,18 @@ public class CheckAttack : MonoBehaviour
 
     public void SetPlayer (PlayerBehavior player)
     {
-        this.player = player;
+        if(player != null)
+        {
+            this.player = player;
+        }
+        else
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                this.player = playerObj.GetComponent<PlayerBehavior>();
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,6 +67,7 @@ public class CheckAttack : MonoBehaviour
         {
             Debug.Log("打到玩家");
             hasHit = true;
+            player.RemoveLastAttackType();
 
             if (destroyOnHit)
             {

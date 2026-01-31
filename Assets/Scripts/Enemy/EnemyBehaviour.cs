@@ -107,7 +107,10 @@ public class EnemyBehaviour : MonoBehaviour
             checkAttack = attackObject.transform.GetChild(0).GetComponent<CheckAttack>();
         }
         if (checkAttack != null)
+        {
             checkAttack.attackSource = source;
+            checkAttack.SetPlayer(null);
+        }
     }
 
     public int GetTypeID ()
