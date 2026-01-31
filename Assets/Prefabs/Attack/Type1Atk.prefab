@@ -164,4 +164,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSource: 
-  destroyOnHit: 1
+  destroyOnHit: 0

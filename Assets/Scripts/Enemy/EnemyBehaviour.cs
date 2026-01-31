@@ -81,9 +81,11 @@ public class EnemyBehaviour : MonoBehaviour
     private void SetAttackSource(GameObject attackObject, string source)
     {
         CheckAttack checkAttack = attackObject.GetComponent<CheckAttack>();
-        if (checkAttack != null)
+        if (checkAttack == null)
         {
-            checkAttack.attackSource = source;
+            checkAttack = attackObject.transform.GetChild(0).GetComponent<CheckAttack>();
         }
+        if (checkAttack != null)
+            checkAttack.attackSource = source;
     }
 }
