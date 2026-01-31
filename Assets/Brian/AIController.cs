@@ -15,7 +15,7 @@ public class AIController : MonoBehaviour
     [Header("Attack")]
     public float attackDistance = 2.5f;
     public float attackCD = 1.5f;
-    public float attackRecover = 0.5f;
+    public float attackRecover = 2f;
     public float attackTimer;
 
     [Header("Chase")]
@@ -39,7 +39,7 @@ public class AIController : MonoBehaviour
     public int health = 10;
     public int damage = 1;
     public GameObject dropMask;
-
+    public EnemyBehaviour enemyBehaviour;
 
 
 
@@ -54,6 +54,7 @@ public class AIController : MonoBehaviour
             }
         }
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        enemyBehaviour = GetComponent<EnemyBehaviour>();
         ChangeState(new IdleState());
     }
 
@@ -174,6 +175,10 @@ public class AIController : MonoBehaviour
 
     public void Hurt(int damage)
     {
+        if(currentState is DeathState)
+        {
+            return;
+        }
         health -= damage;
         if(health <= 0)
         {
@@ -185,7 +190,7 @@ public class AIController : MonoBehaviour
     {
         if(dropMask != null)
         {
-            Instantiate(dropMask, transform.position, transform.rotation);
+            Instantiate(dropMask, transform.position + Vector3.up * 0.5f, transform.rotation).GetComponent<MaskBehaviour>().SetType(enemyBehaviour.GetTypeID());
         }
     }
 

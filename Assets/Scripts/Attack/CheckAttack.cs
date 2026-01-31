@@ -6,6 +6,7 @@ public class CheckAttack : MonoBehaviour
 
     [Header("攻擊來源")]
     public string attackSource; // "Player" 或 "Enemy"
+    public int damage = 10;
 
     [Header("碰撞設置")]
     [Tooltip("碰撞後是否立即銷毀物件")]
@@ -36,10 +37,19 @@ public class CheckAttack : MonoBehaviour
             EnemyBehaviour enemy = other.GetComponent<EnemyBehaviour>();
             if (enemy != null)
             {
-                int id = enemy.GetTypeID();
-                player.attackType = id;
-                Destroy(other.gameObject);
+                enemy.GetDamage(damage);
             }
+        }else if (attackSource == "Player" && other.CompareTag("Mask"))
+        {
+            Debug.Log("打到玩家");
+            hasHit = true;
+
+            if (destroyOnHit)
+            {
+                Destroy(gameObject);
+            }
+            player.attackType = other.GetComponent<MaskBehaviour>().GetType();
+            Destroy(other.gameObject);
         }
         // 敵人的攻擊打到玩家
         else if (attackSource == "Enemy" && other.CompareTag("Player"))

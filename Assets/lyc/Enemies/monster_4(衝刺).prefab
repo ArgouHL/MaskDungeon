@@ -324,6 +324,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "monster_4(\u885D\u523A)"
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 822c0dc5cb1f72c4dbbb44244e314263, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1180114100708705544, guid: 822c0dc5cb1f72c4dbbb44244e314263, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 17.69089
@@ -614,7 +618,7 @@ MonoBehaviour:
   patrolRadius: 8
   attackDistance: 2.5
   attackCD: 1.5
-  attackRecover: 1
+  attackRecover: 2
   attackTimer: 0
   chaseDistance: 8
   chaseDegree: 180
@@ -629,6 +633,7 @@ MonoBehaviour:
   health: 10
   damage: 1
   dropMask: {fileID: 6042705933244592417, guid: b76ca7dd2d773624bb2428e6d04e3076, type: 3}
+  enemyBehaviour: {fileID: 0}
 --- !u!195 &5126350657179516579
 NavMeshAgent:
   m_ObjectHideFlags: 0

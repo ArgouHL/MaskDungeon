@@ -8,7 +8,7 @@ public class AttackState : IState
         controller.agent.isStopped = true;
         controller.agent.ResetPath();
         controller.agent.velocity = Vector3.zero;
-        
+        controller.enemyBehaviour.Attack();
         // TODO: ATTACK
     }
 

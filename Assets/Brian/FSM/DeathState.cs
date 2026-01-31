@@ -9,6 +9,7 @@ public class DeathState : IState
         controller.agent.ResetPath();
         controller.agent.velocity = Vector3.zero;
         controller.GenerateMask();
+        Debug.Log("deadge");
     }
 
     public void Update(AIController controller)
