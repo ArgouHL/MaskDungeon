@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public int attackType { get; set; } = 0;
+    // 攻擊類型陣列，最後一個元素是當前攻擊模式
+    private List<int> attackTypes = new List<int> { 0 };
+
+    // 當前攻擊類型（陣列最後一個元素）
+    public int CurrentAttackType => attackTypes[attackTypes.Count - 1];
 
     [Header("移动设置")]
     [SerializeField] private float moveSpeed = 5f;
@@ -47,8 +52,10 @@ public class PlayerBehavior : MonoBehaviour
 
     void Update()
     {
+        if (!Menu.gameStartBool)
+            return;
+
         Move();
-       // Attack();
     }
 
     private void Move()
@@ -126,8 +133,10 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Attack(InputAction.CallbackContext context)
     {
-       
-            PerformAttack(attackType);
+        if (!Menu.gameStartBool)
+            return;
+
+        PerformAttack(CurrentAttackType);
     }
 
     private void PerformAttack(int index)
@@ -163,6 +172,29 @@ public class PlayerBehavior : MonoBehaviour
         {
             checkAttack.SetPlayer(this);
             checkAttack.attackSource = source;
+        }
+    }
+
+    // 打到敵人時，獲得新的攻擊類型
+    public void AddAttackType(int newType)
+    {
+        attackTypes.Add(newType);
+        Debug.Log($"獲得新攻擊類型: {newType}, 當前陣列: [{string.Join(", ", attackTypes)}]");
+    }
+
+    // 被敵人打到時，移除最後一個攻擊類型
+    public void RemoveLastAttackType()
+    {
+        if (attackTypes.Count > 1) // 至少保留一個攻擊類型
+        {
+            int removedType = attackTypes[attackTypes.Count - 1];
+            attackTypes.RemoveAt(attackTypes.Count - 1);
+            Debug.Log($"失去攻擊類型: {removedType}, 當前陣列: [{string.Join(", ", attackTypes)}]");
+        }
+        else
+        {
+            Menu.instance.GameOverObj.SetActive(true);
+            Debug.Log("你死了");
         }
     }
 }

@@ -3,25 +3,28 @@ using UnityEngine;
 
 public class DoorControl : MonoBehaviour
 {
+    [SerializeField]private GameObject door;
+    [SerializeField] private Light wayLight;
+
+    private void Awake()
+    {
+        wayLight.intensity = 0;
+    }
     internal void Close()
     {
-       gameObject.SetActive(true);
+        door.SetActive(true);
     }
 
-    internal void Open()
+    internal void Open(bool showWay)
     {
-        gameObject.SetActive(false);
+        door.SetActive(false);
+        if (showWay)
+        {
+            LeanTween.value(0, 40, 2).setOnUpdate((float val) => wayLight.intensity = val);
+        }
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    internal void ShowWay()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        door.SetActive(false);
     }
 }

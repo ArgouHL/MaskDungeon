@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class RoomGenerator : MonoBehaviour
 {
-    [Header("ï¿½Ð¶ï¿½ï¿½]ï¿½w")]
+    [Header("©Ð¶¡³]©w")]
     [SerializeField] Vector2Int roomSize = new Vector2Int(10, 10);
-    [SerializeField] int totalRoomCount = 25;
-    [SerializeField] int maxDeadLength = 5;
+    [SerializeField] int targetMaxLength = 9;
+    [SerializeField] int maxDeadLength = 3;
 
-    [Header("ï¿½wï¿½sï¿½ï¿½")]
+    [Header("¹w»sª«")]
     [SerializeField] GameObject startRoom;
     [SerializeField] GameObject gameRoom;
     [SerializeField] GameObject endRoom;
@@ -17,11 +17,13 @@ public class RoomGenerator : MonoBehaviour
     private List<Vector2Int> roomSet = new List<Vector2Int>();
     private Dictionary<Vector2Int, Vector2Int> parentMap = new Dictionary<Vector2Int, Vector2Int>();
 
-    // ï¿½xï¿½sï¿½Cï¿½Ó®yï¿½Ð¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½(ï¿½Bï¿½ï¿½)
+    // Àx¦s¨C­Ó®y¼Ð¹ïÀ³ªº¶ZÂ÷(¨B¼Æ)
     private Dictionary<Vector2Int, int> distanceMap = new Dictionary<Vector2Int, int>();
-    // ï¿½xï¿½sï¿½Í¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½Kï¿½Ì«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½I
+    // Àx¦s¥Í¦¨ªºª«¥ó¡A¤è«K³Ì«á´À´«²×ÂI
     private Dictionary<Vector2Int, GameObject> spawnedRoomObjects = new Dictionary<Vector2Int, GameObject>();
     private List<RoomControl> roomControls = new();
+    private object step;
+
     private void Start()
     {
         GenRoom();
@@ -29,19 +31,19 @@ public class RoomGenerator : MonoBehaviour
 
     private void GenRoom()
     {
-        // 1. ï¿½ï¿½lï¿½Æ°_ï¿½I
+        // 1. ªì©l¤Æ°_ÂI
         Vector2Int startPos = new Vector2Int(0, 0);
         roomSet.Add(startPos);
         distanceMap[startPos] = 0;
         spawnedRoomObjects[startPos] = CreateRoomObject(startRoom, startPos);
-        
-        // 2. ï¿½Í¦ï¿½ï¿½Ò¦ï¿½ï¿½Ð¶ï¿½ (ï¿½]ï¿½tï¿½ï¿½ï¿½ï¿½)
+       int currentMaxDistance = 0;
+        // 2. ¥Í¦¨©Ò¦³©Ð¶¡ (¥]§t¤À¤ä)
         int attempts = 0;
-        while (roomSet.Count < totalRoomCount && attempts < 1000)
+        while (currentMaxDistance < targetMaxLength && attempts < 2000)
         {
+            attempts++;
             Vector2Int branchParent = roomSet[Random.Range(0, roomSet.Count)];
 
-            // ï¿½pï¿½Gï¿½_ï¿½Iï¿½wï¿½gï¿½ï¿½ï¿½Fï¿½~ï¿½Fï¿½Aï¿½Nï¿½ï¿½ï¿½Aï¿½qï¿½_ï¿½Iï¿½Íªï¿½ (ï¿½Tï¿½Oï¿½_ï¿½Iï¿½uï¿½ï¿½ï¿½@ï¿½Ó¤ï¿½Vï¿½ï¿½ï¿½Ð¶ï¿½)
             if (branchParent == startPos && GetNeighborCount(startPos) >= 1) continue;
 
             int deadLength = Random.Range(1, maxDeadLength + 1);
@@ -49,36 +51,38 @@ public class RoomGenerator : MonoBehaviour
 
             for (int i = 0; i < deadLength; i++)
             {
-                if (roomSet.Count >= totalRoomCount) break;
+                // ¦pªG¦b¦ùªø¹Lµ{¤¤¤w¸g¹F¨ì¥Ø¼Ðªø«×¡A¥i¥H¿ï¾Ü°±¤î
+                if (currentMaxDistance >= targetMaxLength) break;
 
                 Way way = RandomWay();
                 Vector2Int nextPos = GetNextCoordinate(currentHead, way);
 
-                // ï¿½Ë¬dï¿½ï¿½ï¿½ï¿½
                 if (!roomSet.Contains(nextPos))
                 {
                     roomSet.Add(nextPos);
                     parentMap[nextPos] = currentHead;
 
-                    // ï¿½pï¿½ï¿½Bï¿½Æ¡Gï¿½ï¿½ï¿½`ï¿½Iï¿½Bï¿½ï¿½ + 1
-                    distanceMap[nextPos] = distanceMap[currentHead] + 1;
+                    int newDist = distanceMap[currentHead] + 1;
+                    distanceMap[nextPos] = newDist;
 
+                    // §ó·s¥Ø«e¥þ¦a¹Ïªº³Ìªø¶ZÂ÷
+                    if (newDist > currentMaxDistance)
+                    {
+                        currentMaxDistance = newDist;
+                    }
+
+                    // ³]©wªùªº³s³q
                     spawnedRoomObjects[currentHead].GetComponent<RoomControl>().SetConnectDoor(way);
-                    // ï¿½ï¿½ï¿½ï¿½ï¿½Í¦ï¿½ï¿½ï¿½ï¿½qï¿½Ð¶ï¿½
-                    spawnedRoomObjects[nextPos] = CreateRoomObject(gameRoom, nextPos,way);
+                    spawnedRoomObjects[nextPos] = CreateRoomObject(gameRoom, nextPos, way, newDist);
 
                     currentHead = nextPos;
                 }
                 else break;
             }
-            attempts++;
-            spawnedRoomObjects[startPos].GetComponentInChildren<NavMeshSurface>().BuildNavMesh();
         }
 
-        // 3. ï¿½ï¿½Xï¿½Ì»ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ã©ï¿½mï¿½ï¿½ï¿½I
+        // 3. §ä¥X³Ì»·ªº©Ð¶¡¨Ã©ñ¸m²×ÂI
         ReplaceFarthestWithEnd();
-
-        FindObjectOfType<SpawnManager>().SpawnEnv();
         
     }
 
@@ -96,7 +100,7 @@ public class RoomGenerator : MonoBehaviour
             }
         }
 
-        // ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½
+        // §ä¨ì¸Óª«¥ó¨Ã´À´«
         if (spawnedRoomObjects.ContainsKey(farthestPos))
         {
             Vector3 pos = spawnedRoomObjects[farthestPos].transform.position;
@@ -137,10 +141,11 @@ public class RoomGenerator : MonoBehaviour
         roomControls.Add(go.GetComponent<RoomControl>());
         return go;
     }
-    private GameObject CreateRoomObject(GameObject prefab, Vector2Int coord,Way way)
+    private GameObject CreateRoomObject(GameObject prefab, Vector2Int coord,Way way,int step)
     {
         GameObject go = CreateRoomObject(prefab, coord);
        go.GetComponent<RoomControl>().SetConnectDoor(ReverseWay(way));
+        go.GetComponent<RoomControl>().SetRoomStep(step);
         return go;
     }
 
@@ -165,7 +170,7 @@ public class RoomGenerator : MonoBehaviour
         }
         return rWay;
     }
-    // ï¿½b Scene ï¿½ï¿½ï¿½ï¿½ï¿½Ð¥Ü¨Bï¿½Æ»Pï¿½ï¿½ï¿½u
+    // ¦b Scene µøµ¡¼Ð¥Ü¨B¼Æ»P¸ô½u
     internal List<RoomControl> GetRoomList()
     {
         return roomControls;
@@ -179,15 +184,15 @@ public class RoomGenerator : MonoBehaviour
         {
             Vector3 worldPos = new Vector3(pair.Key.x * roomSize.x, 2f, pair.Key.y * roomSize.y);
 
-            // ï¿½Ð¥Ü¨Bï¿½Æ¼Æ¦r (ï¿½b Scene ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+            // ¼Ð¥Ü¨B¼Æ¼Æ¦r (¦b Scene µøµ¡Åã¥Ü)
 #if UNITY_EDITOR
             UnityEditor.Handles.Label(worldPos, "Step: " + pair.Value.ToString());
 #endif
 
-            // ï¿½eï¿½Xï¿½sï¿½ï¿½ï¿½u
+            // µe¥X³s±µ½u
             if (parentMap.ContainsKey(pair.Key))
             {
-                Gizmos.color = Color.Lerp(Color.yellow, Color.red, pair.Value / (float)totalRoomCount);
+              //  Gizmos.color = Color.Lerp(Color.yellow, Color.red, pair.Value / (float)totalRoomCount);
                 Vector3 parentPos = new Vector3(parentMap[pair.Key].x * roomSize.x, 0.5f, parentMap[pair.Key].y * roomSize.y);
                 Vector3 currentPos = new Vector3(pair.Key.x * roomSize.x, 0.5f, pair.Key.y * roomSize.y);
                 Gizmos.DrawLine(parentPos, currentPos);

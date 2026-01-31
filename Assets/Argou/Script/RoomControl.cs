@@ -11,14 +11,14 @@ public class RoomControl : MonoBehaviour
     bool leftDoorBlock = true;
     bool rightDoorBlock = true;
 
-    int roomStep =0;
-
+    internal int roomStep = 0;
+    int roomLevel = 0;
     [SerializeField] DoorControl upDoor;
     [SerializeField] DoorControl downDoor;
     [SerializeField] DoorControl leftDoor;
     [SerializeField] DoorControl rightDoor;
 
-    internal delegate void RoomAction(int roomStep);
+    internal delegate void RoomAction(int level);
     internal RoomAction roomStart;
 
     private void Awake()
@@ -31,6 +31,14 @@ public class RoomControl : MonoBehaviour
         roomStart?.Invoke(roomStep);
     }
 
+    internal void SetRoomStep(int step)
+    {
+        roomStep = step;
+    }
+    internal void SetRoomLevel(int maxStep)
+    {
+       // roomStep = step;
+    }
     internal void SetConnectDoor(Way way)
     {
         switch (way)
@@ -50,12 +58,12 @@ public class RoomControl : MonoBehaviour
             default:
                 break;
         }
-        DoorOpen();
+        DoorOpen(true);
     }
 
     internal void RoomEnd()
     {
-        DoorOpen();
+        DoorOpen(true);
     }
     private void DoorClose()
     {
@@ -78,24 +86,24 @@ public class RoomControl : MonoBehaviour
         }
     }
 
-    private void DoorOpen()
+    private void DoorOpen(bool showWay)
     {
         if (!upDoorBlock)
         {
-            upDoor.Open();
+            upDoor.Open(showWay);
         }
         if (!downDoorBlock)
         {
-            downDoor.Open();
+            downDoor.Open(showWay);
         }
         if (!leftDoorBlock)
         {
-            leftDoor.Open();
+            leftDoor.Open(showWay);
         }
 
         if (!rightDoorBlock)
         {
-            rightDoor.Open();
+            rightDoor.Open(showWay);
         }
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DefaultExecutionOrder(-900)]
 public class InputManager : MonoBehaviour
 {
     internal static InputManager instance;

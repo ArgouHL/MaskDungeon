@@ -21,6 +21,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
+        if (!Menu.gameStartBool)
+            return;
+
         float distance = Vector3.Distance(transform.position, Player.position);
 
         Debug.Log("Enemy Distance to Player: " + distance);
