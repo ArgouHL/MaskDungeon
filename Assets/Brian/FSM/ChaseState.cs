@@ -47,7 +47,7 @@ public class ChaseState : IState
                 controller.transform.rotation = Quaternion.RotateTowards(
                     controller.transform.rotation,
                     targetRot,
-                    360f * Time.deltaTime
+                    270f * Time.deltaTime
                 );
             }
             else
