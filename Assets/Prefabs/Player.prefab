@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6899492256520617732}
   - component: {fileID: 3813332407867707723}
   - component: {fileID: 6751660658670646069}
-  - component: {fileID: 1001476387710097225}
   - component: {fileID: 4332656535983336960}
   m_Layer: 0
   m_Name: Player
@@ -125,19 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 5
   rotationSpeed: 720
---- !u!114 &1001476387710097225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8013750340394713471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0742277ff22231b498dbf1f84b97a00b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AttackManager
-  attackPattern:
+  attackPatterns:
   - atkPrefab: {fileID: 2973084724398799620, guid: 321772b8722122e439d49fe1bc7a5f40, type: 3}
     point: {x: 0, y: 0, z: 1}
     atkTime: 0.5

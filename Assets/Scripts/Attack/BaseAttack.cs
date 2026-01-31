@@ -9,6 +9,6 @@ public class BaseAttack : MonoBehaviour
     {
         sprite = GetComponent<SpriteRenderer>();
 
-        sprite.DOFade(0, 0.5f).OnComplete( () => Destroy(gameObject));
+        sprite.DOFade(0, 0.5f).OnComplete(() => Destroy(gameObject));
     }
 }
