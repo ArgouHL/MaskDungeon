@@ -179,6 +179,7 @@ public class PlayerBehavior : MonoBehaviour
     public void AddAttackType(int newType)
     {
         attackTypes.Add(newType);
+        FindObjectOfType<playerMask>().ChangeMask(newType);
         Debug.Log($"獲得新攻擊類型: {newType}, 當前陣列: [{string.Join(", ", attackTypes)}]");
     }
 
@@ -190,6 +191,7 @@ public class PlayerBehavior : MonoBehaviour
             int removedType = attackTypes[attackTypes.Count - 1];
             attackTypes.RemoveAt(attackTypes.Count - 1);
             Debug.Log($"失去攻擊類型: {removedType}, 當前陣列: [{string.Join(", ", attackTypes)}]");
+            FindObjectOfType<playerMask>().ChangeMask(attackTypes[attackTypes.Count - 1]);
         }
         else
         {
