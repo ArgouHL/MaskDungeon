@@ -247,4 +247,96 @@ public class EffectController : MonoBehaviour
     }
     
     #endregion PopDamage
+
+    #region TimeScaleControl
+
+    [Header("Time Scale Control Settings")]
+    private float originalTimeScale = 1f;
+    private float originalFixedDelta = 0.02f;
+    private Coroutine timeScaleCoroutine;
+
+    /// <summary>
+    /// Smoothly set Time.timeScale to <paramref name="targetScale"/> over <paramref name="transition"/> seconds,
+    /// keep it for <paramref name="duration"/> seconds (measured in realtime), then restore to the original time scale.
+    /// </summary>
+    /// <param name="targetScale">Target Time.timeScale value (absolute).</param>
+    /// <param name="duration">How long (in seconds, realtime) to keep the target scale before restoring.</param>
+    /// <param name="transition">How long (in seconds, realtime) to transition into/out of the target scale.</param>
+    public void SetTimeScaleFor(float targetScale, float duration, float transition = 0.05f)
+    {
+        // Stop any existing routine and restore baseline before starting a new one
+        if (timeScaleCoroutine != null)
+        {
+            StopCoroutine(timeScaleCoroutine);
+            timeScaleCoroutine = null;
+            RestoreTimeScaleImmediate();
+        }
+
+        originalTimeScale = Time.timeScale;
+        originalFixedDelta = Time.fixedDeltaTime;
+        timeScaleCoroutine = StartCoroutine(DoTimeScaleRoutine(targetScale, duration, transition));
+    }
+
+    /// <summary>
+    /// Cancel any active time scale effect and immediately restore original time settings.
+    /// </summary>
+    public void CancelTimeScale()
+    {
+        if (timeScaleCoroutine != null)
+        {
+            StopCoroutine(timeScaleCoroutine);
+            timeScaleCoroutine = null;
+        }
+        RestoreTimeScaleImmediate();
+    }
+
+    private IEnumerator DoTimeScaleRoutine(float targetScale, float duration, float transition)
+    {
+        // Transition in (using unscaled time so the effect duration is realtime)
+        float elapsed = 0f;
+        float startScale = Time.timeScale;
+        while (elapsed < transition)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / transition);
+            Time.timeScale = Mathf.Lerp(startScale, targetScale, t);
+            Time.fixedDeltaTime = originalFixedDelta * Time.timeScale;
+            yield return null;
+        }
+
+        // Ensure exact target
+        Time.timeScale = targetScale;
+        Time.fixedDeltaTime = originalFixedDelta * Time.timeScale;
+
+        // Hold for duration (realtime)
+        float hold = 0f;
+        while (hold < duration)
+        {
+            hold += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        // Transition out back to originalTimeScale
+        elapsed = 0f;
+        float fromScale = Time.timeScale;
+        while (elapsed < transition)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / transition);
+            Time.timeScale = Mathf.Lerp(fromScale, originalTimeScale, t);
+            Time.fixedDeltaTime = originalFixedDelta * Time.timeScale;
+            yield return null;
+        }
+
+        // Final restore
+        RestoreTimeScaleImmediate();
+        timeScaleCoroutine = null;
+    }
+
+    private void RestoreTimeScaleImmediate()
+    {
+        Time.timeScale = originalTimeScale;
+        Time.fixedDeltaTime = originalFixedDelta;
+    }
+    #endregion TimeScaleControl
 }

@@ -122,6 +122,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         GetComponent<EffectController>().TriggerWhiteEmission();
         GetComponent<EffectController>().PopDamage(dmg);
+        GetComponent<EffectController>().SetTimeScaleFor(0.2f, 0.1f, 0.05f);
         aiController.Hurt(dmg);
     }
     public void Death()
