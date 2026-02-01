@@ -78,9 +78,16 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
+        
         if(currentState is DeathState)
         {
             return;
+        }
+        if(health <= 0 && currentState is not DeathState)
+        {
+            ChangeState(new DeathState());
+            agent.enabled = false;
+            GetComponent<Collider>().enabled = false;
         }
 
         if(attackTimer >= 0)
