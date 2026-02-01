@@ -76,8 +76,8 @@ public class PlayerBehavior : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogWarning("找不到 Joystick 控制器！");
-                        return Vector2.zero;
+                        joystickController = FindObjectOfType<JoystickController>();
+                        return joystickController.InputDirection;
                     }
 
                 default:
