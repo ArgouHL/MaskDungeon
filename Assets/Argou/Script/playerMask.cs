@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerMask : MonoBehaviour
 {
    [SerializeField] GameObject[] masks;
+
     public void ChangeMask(int target)
     {
         target -= 1;
@@ -17,5 +19,7 @@ public class playerMask : MonoBehaviour
                 masks[i].SetActive(true);
             }
         }
+
+        StartCoroutine(FindObjectOfType<MaskManager>().MaskIconChange(target));
     }
 }

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 3.31
   spawnList:
-  - kind: 1
+  - kind: 3
     number: 1
 --- !u!1 &2388285484655304915
 GameObject:
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 3.31
   spawnList:
-  - kind: 1
+  - kind: 3
     number: 1
 --- !u!1 &5034368915918210251
 GameObject:
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 3.31
   spawnList:
-  - kind: 1
+  - kind: 3
     number: 1
 --- !u!1 &6559791532846791553
 GameObject:
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 3.31
   spawnList:
-  - kind: 2
+  - kind: 4
     number: 1
 --- !u!1 &8683782146107052641
 GameObject:
@@ -274,5 +274,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 3.31
   spawnList:
-  - kind: 2
+  - kind: 4
     number: 1
