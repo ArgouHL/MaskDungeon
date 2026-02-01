@@ -120,6 +120,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void GetDamage(int dmg)
     {
+        GetComponent<EffectController>().TriggerWhiteEmission();
+        GetComponent<EffectController>().PopDamage(dmg);
         aiController.Hurt(dmg);
     }
     public void Death()
