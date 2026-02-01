@@ -28,7 +28,7 @@ public class PlayerBehavior : MonoBehaviour
     private float yVelocity = 0f;
 
     CharacterController characterController;
-    private boll isRushing = false;
+    private bool isRushing = false;
 
     
 
@@ -156,7 +156,7 @@ public class PlayerBehavior : MonoBehaviour
 
         // 設定攻擊來源為玩家
         SetAttackSource(atk, "Player");
-        if (typeID == 4) // 衝刺
+        if (index == 4) // 衝刺
         {
             isRushing = true;
         }
