@@ -124,7 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414ca9d9bcae626428e3d3af1db215ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 4
+  destroyTime: 2
 --- !u!54 &3475960885948202599
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -165,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSource: 
+  damage: 10
   destroyOnHit: 1
 --- !u!1001 &1707694140419285314
 PrefabInstance:

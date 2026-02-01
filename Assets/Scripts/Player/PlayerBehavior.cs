@@ -152,6 +152,7 @@ public class PlayerBehavior : MonoBehaviour
 
         GameObject atk = Instantiate(attackPatterns[index].atkPrefab, transform);
         atk.transform.localPosition = attackPatterns[index].point;
+        atk.transform.parent = null;
 
         // 設定攻擊來源為玩家
         SetAttackSource(atk, "Player");
@@ -178,9 +179,18 @@ public class PlayerBehavior : MonoBehaviour
     // 打到敵人時，獲得新的攻擊類型
     public void AddAttackType(int newType)
     {
+        //delete first if more than 4 types
+        if (attackTypes.Count == 6)
+        {
+            attackTypes.RemoveAt(1);
+        }
+
         attackTypes.Add(newType);
         playerMask.ChangeMask(newType);
         Debug.Log($"獲得新攻擊類型: {newType}, 當前陣列: [{string.Join(", ", attackTypes)}]");
+
+
+        FindObjectOfType<MaskManager>().UpdateSideMasks(attackTypes);
     }
 
     // 被敵人打到時，移除最後一個攻擊類型
@@ -198,5 +208,6 @@ public class PlayerBehavior : MonoBehaviour
             Menu.instance.GameOverObj.SetActive(true);
             Debug.Log("你死了");
         }
+        FindObjectOfType<MaskManager>().UpdateSideMasks(attackTypes);
     }
 }

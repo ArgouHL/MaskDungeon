@@ -88,6 +88,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             GameObject atk = Instantiate(attackPatterns[typeID].atkPrefab, transform);
             atk.transform.localPosition = attackPatterns[typeID].point;
+            atk.transform.parent = null;
+            atk.transform.localScale = Vector3.one;
 
             // 設定攻擊來源為敵人
             SetAttackSource(atk, "Enemy");
@@ -120,6 +122,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void GetDamage(int dmg)
     {
+        GetComponent<EffectController>().TriggerWhiteEmission();
+        GetComponent<EffectController>().PopDamage(dmg);
+        GetComponent<EffectController>().HitCameraShake();
+        //GetComponent<EffectController>().SetTimeScaleFor(0.2f, 0.1f, 0.05f);
         aiController.Hurt(dmg);
     }
     public void Death()
