@@ -95,6 +95,19 @@ public class PlayerBehavior : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
 
+        // 自動偵測平台並設定控制方式
+        #if UNITY_ANDROID && !UNITY_EDITOR
+            platformType = PlatformType.Android;
+            Debug.Log("自動偵測到 Android 平台，使用觸控控制");
+        #elif UNITY_STANDALONE_WIN || UNITY_EDITOR
+            platformType = PlatformType.Windows;
+            Debug.Log("自動偵測到 Windows 平台，使用鍵盤控制");
+        #else
+            // 其他平台預設使用 Windows 模式
+            platformType = PlatformType.Windows;
+            Debug.LogWarning("未知平台，預設使用 Windows 模式");
+        #endif
+
         // 如果是 Android 平台且沒有手動指定 Joystick，自動尋找
         if (platformType == PlatformType.Android && joystickController == null)
         {
