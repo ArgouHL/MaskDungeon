@@ -29,7 +29,7 @@ public class PlayerBehavior : MonoBehaviour
 
     CharacterController characterController;
     private bool isRushing = false;
-    private float timer = 0f;
+    public float timer = 0f;
 
     
 
@@ -50,6 +50,11 @@ public class PlayerBehavior : MonoBehaviour
     {
         InputManager.instance.input.Player.Attack.performed -= Attack;
 
+    }
+
+    public float GetNowMaxCD()
+    {
+        return attackPatterns[CurrentAttackType].CD;
     }
 
     void Update()

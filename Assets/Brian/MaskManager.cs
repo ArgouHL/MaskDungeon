@@ -6,7 +6,7 @@ public class MaskManager : MonoBehaviour
 {
    [SerializeField] Sprite[] maskIcons;
 
-   public Image maskImage;
+   public Image maskImage, cdmaskImage;
    public Image[] sideMasks;
 
     [Header("Side Mask Fade Settings")]
@@ -15,6 +15,8 @@ public class MaskManager : MonoBehaviour
 
     // track running coroutines per side index so we can cancel/replace
     private Dictionary<int, Coroutine> sideCoroutines = new Dictionary<int, Coroutine>();
+
+    public PlayerBehavior playerBehavior;
 
     private void Awake()
     {
@@ -27,6 +29,13 @@ public class MaskManager : MonoBehaviour
                 if (sideMasks[i] != null) sideMasks[i].enabled = false;
             }
         }
+    }
+
+    void Update()
+    {
+        maskImage.fillAmount = (playerBehavior.GetNowMaxCD() - playerBehavior.timer) / playerBehavior.GetNowMaxCD();
+        cdmaskImage.sprite = maskImage.sprite;
+        cdmaskImage.enabled = maskImage.enabled;
     }
 
     /// <summary>
