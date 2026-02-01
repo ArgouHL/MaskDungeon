@@ -267,7 +267,10 @@ public class PlayerBehavior : MonoBehaviour
             return;
 
         Debug.Log($"[{Time.time:F2}] 攻擊按鈕被按下！");
-        PerformAttack(CurrentAttackType);
+        if (timer <= 0)
+        {
+            PerformAttack(CurrentAttackType);
+        }
     }
 
     private void PerformAttack(int index)
