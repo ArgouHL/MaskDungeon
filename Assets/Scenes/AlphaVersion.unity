@@ -1780,6 +1780,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[0].atkTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6899492256520617732, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
       propertyPath: m_Enabled
       value: 0
