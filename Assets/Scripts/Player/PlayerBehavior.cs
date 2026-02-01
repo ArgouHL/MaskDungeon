@@ -27,6 +27,11 @@ public class PlayerBehavior : MonoBehaviour
     [Tooltip("選擇當前平台：Windows 使用鍵盤，Android 使用蘑菇頭")]
     [SerializeField] private PlatformType platformType = PlatformType.Windows;
 
+    /// <summary>
+    /// 公開的平台類型屬性，供其他腳本讀取
+    /// </summary>
+    public PlatformType CurrentPlatform => platformType;
+
     [Header("蘑菇頭設置")]
     [Tooltip("Joystick 控制器，如果不指定會自動尋找")]
     [SerializeField] private JoystickController joystickController;
