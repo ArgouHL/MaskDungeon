@@ -88,17 +88,39 @@ public class EnemyBehaviour : MonoBehaviour
         {
             GameObject atk = Instantiate(attackPatterns[typeID].atkPrefab, transform);
             atk.transform.localPosition = attackPatterns[typeID].point;
-            atk.transform.parent = null;
-            atk.transform.localScale = Vector3.one;
+            if(typeID != 4)
+            {
+                atk.transform.parent = null;
+                atk.transform.localScale = Vector3.one;
+            }
 
             // 設定攻擊來源為敵人
             SetAttackSource(atk, "Enemy");
         }
 
+        aiController.anim.SetBool("isAttacking", true);
+
+        if (typeID == 4) // 衝刺
+        {
+            StartCoroutine(Rush());
+        }
+
         yield return new WaitForSeconds(attackPatterns[typeID].atkTime);
+        aiController.anim.SetBool("isAttacking", false);
 
         isAttacking = false;
         isAimming = false;
+    }
+    private IEnumerator Rush(float duration = 0.5f, float speed = 12f)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            transform.position += transform.forward * speed * Time.deltaTime;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
     }
 
     private void SetAttackSource(GameObject attackObject, string source)

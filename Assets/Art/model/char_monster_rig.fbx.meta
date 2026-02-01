@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 822c0dc5cb1f72c4dbbb44244e314263
+guid: 3f3e135861f7c604b856069804092a6b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,18 +31,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: walk
+      name: Rush
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 16
-      lastFrame: 70
+      firstFrame: 1
+      lastFrame: 85
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -58,7 +58,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []

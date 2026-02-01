@@ -565,7 +565,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AIAnim
+  m_Name: AIAnimRush
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isIdle
@@ -695,7 +695,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 5da386f36063f8e418c98dcb82048cd7, type: 2}
+  m_Motion: {fileID: 7400000, guid: 306516e39d60f6a41b1c4bbe862f5ff0, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
