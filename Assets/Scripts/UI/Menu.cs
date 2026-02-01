@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class Menu : MonoBehaviour
 {
     public static Menu instance { get; private set; }
+    [SerializeField] GameObject winCV;
     private void Awake()
     {
         if (instance == null)
@@ -43,5 +44,10 @@ public class Menu : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    public void GameWin()
+    {
+        winCV.SetActive(true);
     }
 }
