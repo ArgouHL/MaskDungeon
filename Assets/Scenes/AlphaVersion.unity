@@ -1800,11 +1800,7 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4460935785607233980, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
-    - {fileID: 3434705934487962017, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
-    - {fileID: 7787157500693848637, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
-    - {fileID: 2571610684037601637, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -6026,10 +6022,6 @@ PrefabInstance:
     - target: {fileID: 8197992874271571691, guid: 067d095ff53c96f48ba907e9cd370683, type: 3}
       propertyPath: m_Name
       value: RoomGen (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8197992874271571691, guid: 067d095ff53c96f48ba907e9cd370683, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
