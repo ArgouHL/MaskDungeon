@@ -282,5 +282,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSource: 
-  damage: 10
+  damage: 15
   destroyOnHit: 0

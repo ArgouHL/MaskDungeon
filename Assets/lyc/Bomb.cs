@@ -4,9 +4,11 @@ using System.Collections;
 public class Bomb : MonoBehaviour
 {
     bool hasBoomed = false;
+    CheckAttack checkAttack;
 
     void Start()
     {
+        checkAttack = GetComponent<CheckAttack>();
         StartCoroutine(SetBoom());
     }
 
@@ -23,7 +25,7 @@ public class Bomb : MonoBehaviour
         if (hasBoomed) return;
 
 
-        GetComponent<CheckAttack>().enabled = true;
+        checkAttack.enabled = true;
         hasBoomed = true;
         StopAllCoroutines();
         StartCoroutine(Boom());
@@ -54,8 +56,11 @@ public class Bomb : MonoBehaviour
     {
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
-        TriggerBoom();
+        if((other.CompareTag("Enemy") && checkAttack.attackSource == "Player")|| (other.CompareTag("Player")&& checkAttack.attackSource == "Enemy"))
+        {
+            TriggerBoom();
+        }
     }
 }

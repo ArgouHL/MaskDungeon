@@ -8,6 +8,7 @@ public class AttackPattern
     public GameObject aimPrefab;
     public Vector3 point;
     public float atkTime;
+    public float CD;
 }
 
 public class AttackManager : MonoBehaviour

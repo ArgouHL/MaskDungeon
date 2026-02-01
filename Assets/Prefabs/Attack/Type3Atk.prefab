@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSource: 
-  damage: 10
+  damage: 8
   destroyOnHit: 0
 --- !u!1 &8884777731559117836
 GameObject:

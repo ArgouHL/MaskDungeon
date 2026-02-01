@@ -2015,6 +2015,22 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[1].CD
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[2].CD
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[3].CD
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[4].CD
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
       propertyPath: attackPatterns.Array.data[1].point.y
       value: -0.5
       objectReference: {fileID: 0}
