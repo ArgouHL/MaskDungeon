@@ -88,8 +88,11 @@ public class EnemyBehaviour : MonoBehaviour
         {
             GameObject atk = Instantiate(attackPatterns[typeID].atkPrefab, transform);
             atk.transform.localPosition = attackPatterns[typeID].point;
-            atk.transform.parent = null;
-            atk.transform.localScale = Vector3.one;
+            if(typeID != 4)
+            {
+                atk.transform.parent = null;
+                atk.transform.localScale = Vector3.one;
+            }
 
             // 設定攻擊來源為敵人
             SetAttackSource(atk, "Enemy");

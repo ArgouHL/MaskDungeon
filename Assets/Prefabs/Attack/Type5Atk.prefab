@@ -108,8 +108,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2.9456956, z: 1}
+  m_Center: {x: 0, y: 0.9728466, z: 0}
 --- !u!54 &1506431338850412698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5390617091839191625}
-  - component: {fileID: 7500097976530464353}
+  - component: {fileID: 2945020724804004797}
   m_Layer: 0
   m_Name: Type5Atk
   m_TagString: Untagged
@@ -185,7 +185,7 @@ Transform:
   - {fileID: 8628065211044219908}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 50, z: 0}
---- !u!114 &7500097976530464353
+--- !u!114 &2945020724804004797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,7 +194,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8884777731559117836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2615ea0fdda3f284589238c029007e63, type: 3}
+  m_Script: {fileID: 11500000, guid: ae713ffc53c3f72479da03e768e3765f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEffectPrefab: {fileID: 3571495857438928545, guid: 4552647ac305adf47abde465e0bb3209, type: 3}
+  particleSystem: {fileID: 2383980024832059054, guid: ffbd6888ae62f70428b6f2f38dfdcad6, type: 3}
+  timer: 0

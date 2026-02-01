@@ -71,7 +71,31 @@ PrefabInstance:
     - target: {fileID: -1763283160613858227, guid: 3f3e135861f7c604b856069804092a6b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: da66037eb4015f449aff2d260aebb99c, type: 2}
+      objectReference: {fileID: 2100000, guid: 46a57517cb4e0c94e84c8b0ab6ee6178, type: 2}
+    - target: {fileID: -95573009805793900, guid: 3f3e135861f7c604b856069804092a6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -95573009805793900, guid: 3f3e135861f7c604b856069804092a6b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -95573009805793900, guid: 3f3e135861f7c604b856069804092a6b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -95573009805793900, guid: 3f3e135861f7c604b856069804092a6b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -95573009805793900, guid: 3f3e135861f7c604b856069804092a6b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -95573009805793900, guid: 3f3e135861f7c604b856069804092a6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3f3e135861f7c604b856069804092a6b, type: 3}
       propertyPath: m_Name
       value: "monster_2(\u6247\u5F62\u780D)"

@@ -159,7 +159,11 @@ public class PlayerBehavior : MonoBehaviour
 
         GameObject atk = Instantiate(attackPatterns[index].atkPrefab, transform);
         atk.transform.localPosition = attackPatterns[index].point;
-        atk.transform.parent = null;
+        if (index != 4 && index != 2) // 衝刺
+        {
+            atk.transform.parent = null;
+        }
+
 
         // 設定攻擊來源為玩家
         SetAttackSource(atk, "Player");
@@ -170,7 +174,7 @@ public class PlayerBehavior : MonoBehaviour
 
 
         yield return new WaitForSeconds(attackPatterns[index].atkTime);
-        isRushing = true;
+        isRushing = false;
 
         isAttacking = false;
     }
