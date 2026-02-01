@@ -1222,7 +1222,7 @@ MonoBehaviour:
   patrolRadius: 6
   attackDistance: 7
   attackCD: 3
-  attackRecover: 2
+  attackRecover: 3
   attackTimer: 0
   chaseDistance: 10
   chaseDegree: 105
@@ -1238,6 +1238,7 @@ MonoBehaviour:
   damage: 1
   dropMask: {fileID: 6042705933244592417, guid: b76ca7dd2d773624bb2428e6d04e3076, type: 3}
   enemyBehaviour: {fileID: 0}
+  midpoint: {fileID: 0}
 --- !u!195 &4223540354632726548
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1279,7 +1280,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.13999999, y: 0.34439954, z: 0.15994667}
+  m_Size: {x: 0.23579629, y: 0.34439954, z: 0.18099926}
   m_Center: {x: 0, y: 0.19637233, z: 0}
 --- !u!114 &1930133886400356096
 MonoBehaviour:

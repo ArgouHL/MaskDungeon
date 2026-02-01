@@ -1278,7 +1278,7 @@ MonoBehaviour:
   idleTimer: 0
   health: 10
   damage: 1
-  dropMask: {fileID: 6042705933244592417, guid: b76ca7dd2d773624bb2428e6d04e3076, type: 3}
+  dropMask: {fileID: 6042705933244592417, guid: 95885fdb736def448a5b852ff46a897e, type: 3}
   enemyBehaviour: {fileID: 0}
 --- !u!195 &6317063244206775144
 NavMeshAgent:
@@ -1321,7 +1321,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.13999999, y: 0.34439954, z: 0.15994667}
+  m_Size: {x: 0.23579629, y: 0.34439954, z: 0.18099926}
   m_Center: {x: 0, y: 0.19637233, z: 0}
 --- !u!4 &5872535476556398925 stripped
 Transform:
