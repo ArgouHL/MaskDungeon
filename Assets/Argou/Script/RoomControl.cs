@@ -21,6 +21,7 @@ public class RoomControl : MonoBehaviour
     internal RoomAction roomStart;
 
     bool isBattle = false;
+    bool isStarted = false;
 
     private void Awake()
     {
@@ -51,6 +52,8 @@ public class RoomControl : MonoBehaviour
 
     internal void RoomStart()
     {
+        if (isStarted) return;
+        isStarted = true;
         DoorClose();
         roomStart?.Invoke(roomStep);
     }

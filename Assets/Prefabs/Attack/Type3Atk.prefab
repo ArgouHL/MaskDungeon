@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSource: 
+  damage: 10
   destroyOnHit: 0
 --- !u!1 &8884777731559117836
 GameObject:
@@ -178,7 +179,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.42261827, z: 0, w: 0.9063079}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.7022472}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8628065211044219908}

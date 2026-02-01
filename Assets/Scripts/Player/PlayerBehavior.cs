@@ -153,6 +153,7 @@ public class PlayerBehavior : MonoBehaviour
 
         GameObject atk = Instantiate(attackPatterns[index].atkPrefab, transform);
         atk.transform.localPosition = attackPatterns[index].point;
+        atk.transform.parent = null;
 
         // 設定攻擊來源為玩家
         SetAttackSource(atk, "Player");

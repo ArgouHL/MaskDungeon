@@ -339,4 +339,95 @@ public class EffectController : MonoBehaviour
         Time.fixedDeltaTime = originalFixedDelta;
     }
     #endregion TimeScaleControl
+
+    #region CameraShake
+
+    private Coroutine cameraShakeCoroutine;
+    private Vector3 camOriginalLocalPos;
+    private Quaternion camOriginalLocalRot;
+
+    /// <summary>
+    /// Shakes the main camera for a short time. Uses unscaled time so it is unaffected by Time.timeScale.
+    /// </summary>
+    /// <param name="duration">Duration in seconds (real-time).</param>
+    /// <param name="magnitude">Maximum positional offset in world units.</param>
+    /// <param name="frequency">How quickly the shake updates (higher = jitterier).</param>
+    public void HitCameraShake(float duration = 0.2f, float magnitude = 0.15f, float frequency = 30f)
+    {
+        // stop previous
+        if (cameraShakeCoroutine != null)
+        {
+            StopCoroutine(cameraShakeCoroutine);
+            cameraShakeCoroutine = null;
+            RestoreCameraTransform();
+        }
+
+        var cam = Camera.main ?? Camera.current;
+        if (cam == null)
+        {
+            Debug.LogWarning("HitCameraShake: no main camera found.");
+            return;
+        }
+
+        camOriginalLocalPos = cam.transform.localPosition;
+        camOriginalLocalRot = cam.transform.localRotation;
+        cameraShakeCoroutine = StartCoroutine(DoCameraShake(cam.transform, duration, magnitude, frequency));
+    }
+
+    private IEnumerator DoCameraShake(Transform camTransform, float duration, float magnitude, float frequency)
+    {
+        float elapsed = 0f;
+        float interval = 1f / Mathf.Max(1f, frequency);
+        float timer = 0f;
+        Vector3 lastOffset = Vector3.zero;
+
+        while (elapsed < duration)
+        {
+            float dt = Time.unscaledDeltaTime;
+            elapsed += dt;
+            timer += dt;
+
+            if (timer >= interval)
+            {
+                timer = 0f;
+                // new random offset; damp over time
+                float damper = 1f - Mathf.Clamp01(elapsed / duration);
+                Vector3 rnd = Random.insideUnitSphere * magnitude * damper;
+                // apply only X and Y for screen shake to avoid moving camera forward/back
+                rnd.z = 0f;
+
+                // remove last offset then apply new
+                camTransform.localPosition = camOriginalLocalPos + rnd;
+                // small rotation tilt based on offset
+                camTransform.localRotation = camOriginalLocalRot * Quaternion.Euler(new Vector3(-rnd.y, rnd.x, 0f) * 5f);
+                lastOffset = rnd;
+            }
+
+            yield return null;
+        }
+
+        RestoreCameraTransform();
+        cameraShakeCoroutine = null;
+    }
+
+    private void RestoreCameraTransform()
+    {
+        var cam = Camera.main ?? Camera.current;
+        if (cam == null) return;
+        cam.transform.localPosition = camOriginalLocalPos;
+        cam.transform.localRotation = camOriginalLocalRot;
+    }
+
+    private void OnDisable()
+    {
+        // ensure camera restored if this component is disabled
+        if (cameraShakeCoroutine != null)
+        {
+            StopCoroutine(cameraShakeCoroutine);
+            cameraShakeCoroutine = null;
+        }
+        RestoreCameraTransform();
+    }
+
+    #endregion CameraShake
 }
