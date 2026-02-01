@@ -43,7 +43,16 @@ public class AIController : MonoBehaviour
     public Transform midpoint;
 
 
+    public void SetLevel(int lvl)
+    {
+        float min = 0.8f + lvl * 0.01f;
+        float max = 1f + lvl * 0.2f;
 
+        float factor = Random.Range(min, max);
+
+        health = Mathf.RoundToInt(health * factor);
+        transform.localScale *= factor;
+    }
     void Start()
     {
         if (player == null)

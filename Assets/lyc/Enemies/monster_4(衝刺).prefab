@@ -1089,7 +1089,7 @@ Animator:
   m_GameObject: {fileID: 2083160431540126490}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a18d6164c3c048c40a71cb74a89aa4ed, type: 2}
+  m_Controller: {fileID: 9100000, guid: 81e4399804c3898488299ebf949459a0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1135,7 +1135,7 @@ MonoBehaviour:
   idleMin: 2
   idleMax: 5
   idleTimer: 0
-  health: 10
+  health: 7
   damage: 1
   dropMask: {fileID: 6042705933244592417, guid: 4d98c2f1e807d48468aa8b468ed060a2, type: 3}
   enemyBehaviour: {fileID: 0}
