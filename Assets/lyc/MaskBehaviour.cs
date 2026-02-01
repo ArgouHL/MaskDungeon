@@ -32,4 +32,14 @@ public class MaskBehaviour : MonoBehaviour
     {
         return type;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        PlayerBehavior pb = other.GetComponent<PlayerBehavior>();
+        if(pb != null)
+        {
+            pb.AddAttackType(type);
+            Destroy(gameObject);
+        }
+    }
 }

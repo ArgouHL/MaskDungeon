@@ -40,6 +40,7 @@ public class AIController : MonoBehaviour
     public int damage = 1;
     public GameObject dropMask;
     public EnemyBehaviour enemyBehaviour;
+    public Transform midpoint;
 
 
 
@@ -56,6 +57,14 @@ public class AIController : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         enemyBehaviour = GetComponent<EnemyBehaviour>();
         ChangeState(new IdleState());
+        Vector3 origin = transform.position + Vector3.up * 0.1f;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, 5f))
+        {
+            midpoint = hit.collider.transform;
+        }
     }
 
     void Update()
@@ -102,7 +111,11 @@ public class AIController : MonoBehaviour
                 }
                 else
                 {
-                    chaseTimer += Time.deltaTime;
+                    if (currentState is not AttackState)
+                    {
+                        chaseTimer += Time.deltaTime;
+                        
+                    }
                     if(chaseTimer >= chaseTime)
                     {
                         ChangeState(new IdleState());
@@ -125,11 +138,19 @@ public class AIController : MonoBehaviour
 
     public void SetNewPatrolDestination()
     {
+        float largerRadius = 10f;
         Vector3 randomPoint;
-        if (RandomPointOnNavMesh(transform.position, patrolRadius, out randomPoint))
+
+        if (RandomPointOnNavMeshInTwoRanges(
+            transform.position,
+            patrolRadius,
+            midpoint.position,
+            largerRadius,
+            out randomPoint))
         {
             patrolDestination = randomPoint;
-            if (agent != null) 
+
+            if (agent != null)
             {
                 agent.SetDestination(patrolDestination);
                 Debug.DrawRay(patrolDestination, Vector3.up, Color.blue, 1.0f);
@@ -137,11 +158,31 @@ public class AIController : MonoBehaviour
         }
         else
         {
-            // fallback: stay in place
             patrolDestination = transform.position;
             if (agent != null) agent.ResetPath();
         }
     }
+
+    bool RandomPointOnNavMeshInTwoRanges( Vector3 centerA, float radiusA, Vector3 centerB, float radiusB, out Vector3 result)
+    {
+        const int maxAttempts = 10;
+
+        for (int i = 0; i < maxAttempts; i++)
+        {
+            Vector2 rnd = Random.insideUnitCircle * radiusB;
+            Vector3 candidate = centerB + new Vector3(rnd.x, 0f, rnd.y);
+
+            if ((candidate - centerA).sqrMagnitude > radiusA * radiusA)
+                continue;
+
+            if (RandomPointOnNavMesh(candidate, 0.5f, out result))
+                return true;
+        }
+
+        result = Vector3.zero;
+        return false;
+    }
+
 
     bool RandomPointOnNavMesh(Vector3 center, float radius, out Vector3 result)
     {
@@ -193,6 +234,7 @@ public class AIController : MonoBehaviour
         if(dropMask != null)
         {
             FindObjectOfType<SpawnManager>().enemyCount--;
+            enemyBehaviour.Death();
             Instantiate(dropMask, transform.position + Vector3.up * 0.5f, transform.rotation).GetComponent<MaskBehaviour>().SetType(enemyBehaviour.GetTypeID());
         }
     }

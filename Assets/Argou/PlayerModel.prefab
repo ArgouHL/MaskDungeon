@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8649660255682357364}
-  - component: {fileID: 400196142968791835}
+  - component: {fileID: 4862485916567110785}
   m_Layer: 0
   m_Name: PlayerModel
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 1732725464916182011}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &400196142968791835
+--- !u!114 &4862485916567110785
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2028268010235170784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cdf5fd94daefe641a49ba7b1f113fb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 77670b1b51718914ca5f7c4e523ee62c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   masks:
@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7799514298218915310, guid: ab4f2054b7e80294183cf39280379ec8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8592178274514535483, guid: ab4f2054b7e80294183cf39280379ec8, type: 3}
       propertyPath: m_CastShadows
