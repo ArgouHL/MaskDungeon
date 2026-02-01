@@ -8,7 +8,7 @@ public class MaskBehaviour : MonoBehaviour
         var ps=GetComponentInChildren<ParticleSystem>();
         ps.Stop();
         ps.Play();
-
+        transform.position += Vector3.one * 1.5f;
     }
 
     public void SetType(int newtype)
