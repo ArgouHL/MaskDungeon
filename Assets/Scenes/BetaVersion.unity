@@ -238,7 +238,7 @@ MonoBehaviour:
   targetMaxLength: 9
   maxDeadLength: 2
   startRoom: {fileID: 5440110738581736930, guid: 2099720916433d7439537c4ef63294a5, type: 3}
-  gameRoom: {fileID: 5440110738581736930, guid: f3fb2c7d346bd724b829b37ecfbe83ae, type: 3}
+  gameRooms: []
   endRoom: {fileID: 5440110738581736930, guid: e3421d2d907cd3840adf95b54e750cf9, type: 3}
 --- !u!4 &39595087
 Transform:
@@ -2036,6 +2036,30 @@ PrefabInstance:
       propertyPath: attackPatterns.Array.data[4].atkPrefab
       value: 
       objectReference: {fileID: 8884777731559117836, guid: 6bb63196c5dae56498de8a46990df503, type: 3}
+    - target: {fileID: 4332656535983336960, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: m_Height
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332656535983336960, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: m_Radius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332656535983336960, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: m_SkinWidth
+      value: 0.008
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332656535983336960, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: m_SlopeLimit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332656535983336960, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: m_StepOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332656535983336960, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: m_MinMoveDistance
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 8013750340394713471, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
       propertyPath: m_Name
       value: Player
