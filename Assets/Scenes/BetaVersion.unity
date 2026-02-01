@@ -6820,6 +6820,8 @@ MonoBehaviour:
   EnemyList:
   - {fileID: 4631801080302201140, guid: b2b98cf9bcd0c1d48b2bc41d56bf2de6, type: 3}
   - {fileID: 5585931203040983717, guid: 07cd5722dfd11ef4cbf67e1409130e72, type: 3}
+  - {fileID: 5740210081629958218, guid: 5f283e65fd0bdc64c80f7dcd20b7f0c4, type: 3}
+  - {fileID: 2083160431540126490, guid: 78db4e2bf9ad541478cd13a01694fff3, type: 3}
   enemyCount: 0
 --- !u!1 &1914444470
 GameObject:

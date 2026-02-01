@@ -28,6 +28,7 @@ public class PlayerBehavior : MonoBehaviour
     private float yVelocity = 0f;
 
     CharacterController characterController;
+    private bool isRushing = false;
 
     
 
@@ -69,15 +70,21 @@ public class PlayerBehavior : MonoBehaviour
         {
             yVelocity += gravity * Time.deltaTime; // 應用重力
         }
-
-        // 攻擊時不能移動也不能旋轉
-        if (isAttacking)
+        if (isRushing)
         {
-            // 只應用重力
-            Vector3 gravityMove = new Vector3(0, yVelocity, 0) * Time.deltaTime;
-            characterController.Move(gravityMove);
+            Vector3 move = transform.forward * moveSpeed * Time.deltaTime * 3f;
+            characterController.Move(move);
             return;
         }
+
+        // 攻擊時不能移動也不能旋轉
+        // if (isAttacking)
+        // {
+        //     // 只應用重力
+        //     Vector3 gravityMove = new Vector3(0, yVelocity, 0) * Time.deltaTime;
+        //     characterController.Move(gravityMove);
+        //     return;
+        // }
 
         // 檢測按鍵輸入（支持八方位）
         //moveInput = new Vector2(
@@ -152,12 +159,22 @@ public class PlayerBehavior : MonoBehaviour
 
         GameObject atk = Instantiate(attackPatterns[index].atkPrefab, transform);
         atk.transform.localPosition = attackPatterns[index].point;
-        atk.transform.parent = null;
+        if (index != 4 && index != 2) // 衝刺
+        {
+            atk.transform.parent = null;
+        }
+
 
         // 設定攻擊來源為玩家
         SetAttackSource(atk, "Player");
+        if (index == 4) // 衝刺
+        {
+            isRushing = true;
+        }
+
 
         yield return new WaitForSeconds(attackPatterns[index].atkTime);
+        isRushing = false;
 
         isAttacking = false;
     }
@@ -196,6 +213,7 @@ public class PlayerBehavior : MonoBehaviour
     // 被敵人打到時，移除最後一個攻擊類型
     public void RemoveLastAttackType()
     {
+        if(isRushing) return;
         if (attackTypes.Count > 1) // 至少保留一個攻擊類型
         {
             int removedType = attackTypes[attackTypes.Count - 1];
