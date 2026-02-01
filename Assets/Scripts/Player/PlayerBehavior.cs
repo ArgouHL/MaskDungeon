@@ -28,6 +28,7 @@ public class PlayerBehavior : MonoBehaviour
     private float yVelocity = 0f;
 
     CharacterController characterController;
+    private boll isRushing = false;
 
     
 
@@ -155,8 +156,14 @@ public class PlayerBehavior : MonoBehaviour
 
         // 設定攻擊來源為玩家
         SetAttackSource(atk, "Player");
+        if (typeID == 4) // 衝刺
+        {
+            isRushing = true;
+        }
+
 
         yield return new WaitForSeconds(attackPatterns[index].atkTime);
+        isRushing = true;
 
         isAttacking = false;
     }

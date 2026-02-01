@@ -103,7 +103,7 @@ public class AIController : MonoBehaviour
             {
                 if(inSight){
                     chaseTimer = 0;
-                    if(distance < attackDistance && attackTimer <= 0f)
+                    if(distance < attackDistance && attackTimer <= 0f && Vector3.Angle(direction, transform.forward) < 15f)
                     {
                         attackTimer = attackCD + attackRecover;
                         ChangeState(new AttackState());
