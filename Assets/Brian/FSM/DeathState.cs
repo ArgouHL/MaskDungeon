@@ -20,6 +20,6 @@ public class DeathState : IState
 
     public void Exit(AIController controller)
     {
-        controller.anim.SetBool("isDead", false);
+        // controller.anim.SetBool("isDead", false);
     }
 }

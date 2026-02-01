@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 5659112295493182187}
   - component: {fileID: -1247789185714338010}
   - component: {fileID: 5981050735108230074}
+  - component: {fileID: 6245302346754516794}
   m_Layer: 0
   m_Name: Type4Atk
   m_TagString: Untagged
@@ -284,3 +285,24 @@ MonoBehaviour:
   attackSource: 
   damage: 15
   destroyOnHit: 0
+--- !u!65 &6245302346754516794
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884777731559117836}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6, y: 5, z: 0.6}
+  m_Center: {x: 0, y: 0, z: 0}

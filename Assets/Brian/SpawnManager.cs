@@ -121,7 +121,7 @@ public class SpawnManager : MonoBehaviour
                     // Random position within the spawn point's range on XZ plane
                     Vector2 r = Random.insideUnitCircle * Mathf.Max(0f, sp.range);
                     Vector3 pos = sp.transform.position + new Vector3(r.x, 0f, r.y);
-                    Instantiate(enemyPrefab, pos, Quaternion.identity, spawnedRoomEnemy.transform);
+                    Instantiate(enemyPrefab, pos, Quaternion.identity, spawnedRoomEnemy.transform).GetComponent<AIController>().SetLevel(roomStep);
                     enemyCount++;
                 }
             }

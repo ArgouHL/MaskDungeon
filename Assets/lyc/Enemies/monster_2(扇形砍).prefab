@@ -1272,7 +1272,7 @@ MonoBehaviour:
   idleMin: 2
   idleMax: 5
   idleTimer: 0
-  health: 15
+  health: 12
   damage: 1
   dropMask: {fileID: 6042705933244592417, guid: 0f874acfc6a15354eb58ddcd4e64b97b, type: 3}
   enemyBehaviour: {fileID: 0}
@@ -1341,14 +1341,17 @@ MonoBehaviour:
     aimPrefab: {fileID: 0}
     point: {x: 0, y: 0, z: 1}
     atkTime: 0.5
+    CD: 0
   - atkPrefab: {fileID: 7371708411764677414, guid: 67e0b41ead1efa140a2a211ce5bd17d2, type: 3}
     aimPrefab: {fileID: 3051143225358776909, guid: b12c3f2385a81f8478d9a3181855ba3a, type: 3}
     point: {x: 0, y: 0, z: 1}
     atkTime: 0.5
+    CD: 0
   - atkPrefab: {fileID: 8884777731559117836, guid: e1b4f439a63b3c242b6f0665912dc170, type: 3}
     aimPrefab: {fileID: 6405727550456626678, guid: e3abb80aead29844e91e749f742e01c7, type: 3}
     point: {x: 0, y: 0.5, z: 0}
     atkTime: 0.25
+    CD: 0
 --- !u!114 &3499036666947724139
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -162,7 +162,7 @@ public class PlayerBehavior : MonoBehaviour
 
         GameObject atk = Instantiate(attackPatterns[index].atkPrefab, transform);
         atk.transform.localPosition = attackPatterns[index].point;
-        if (index != 4 && index != 2) // 衝刺
+        if (index != 4 && index != 2 && index != 0) // 衝刺
         {
             atk.transform.parent = null;
         }
