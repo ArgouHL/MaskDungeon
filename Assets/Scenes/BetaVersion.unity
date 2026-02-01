@@ -2011,6 +2011,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
       propertyPath: attackPatterns.Array.data[1].point.y
       value: -0.5
       objectReference: {fileID: 0}
@@ -2018,6 +2022,42 @@ PrefabInstance:
       propertyPath: attackPatterns.Array.data[2].point.y
       value: -0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[3].atkTime
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[3].point.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[3].point.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[4].atkTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[4].point.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[3].aimPrefab
+      value: 
+      objectReference: {fileID: 6405727550456626678, guid: e3abb80aead29844e91e749f742e01c7, type: 3}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[3].atkPrefab
+      value: 
+      objectReference: {fileID: 8884777731559117836, guid: 00fee8d6dd32a7b46a52f368e95cd416, type: 3}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[4].aimPrefab
+      value: 
+      objectReference: {fileID: 3051143225358776909, guid: 46a7b982c7bcd9244bad74f63604ee2e, type: 3}
+    - target: {fileID: 2632760408093667784, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      propertyPath: attackPatterns.Array.data[4].atkPrefab
+      value: 
+      objectReference: {fileID: 8884777731559117836, guid: 6bb63196c5dae56498de8a46990df503, type: 3}
     - target: {fileID: 8013750340394713471, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
       propertyPath: m_Name
       value: Player
