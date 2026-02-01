@@ -108,7 +108,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.9456956, z: 1}
+  m_Size: {x: 0.8, y: 2.9456956, z: 0.8}
   m_Center: {x: 0, y: 0.9728466, z: 0}
 --- !u!54 &1506431338850412698
 Rigidbody:
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSource: 
-  damage: 10
+  damage: 4
   destroyOnHit: 0
 --- !u!1 &8884777731559117836
 GameObject:

@@ -29,6 +29,7 @@ public class PlayerBehavior : MonoBehaviour
 
     CharacterController characterController;
     private bool isRushing = false;
+    private float timer = 0f;
 
     
 
@@ -55,7 +56,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (!Menu.gameStartBool)
             return;
-
+        if(timer > 0) timer -= Time.deltaTime;
         Move();
     }
 
@@ -142,14 +143,16 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (!Menu.gameStartBool)
             return;
-
-        PerformAttack(CurrentAttackType);
+        if(timer <= 0)
+        {
+            PerformAttack(CurrentAttackType);
+        }
     }
 
     private void PerformAttack(int index)
     {
         if (isAttacking || index >= attackPatterns.Length) return;
-
+        timer = attackPatterns[index].CD;
         StartCoroutine(AttackCoroutine(index));
     }
 

@@ -276,11 +276,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8884777731559117836}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1be7bfb2893ccfb47ac7ab8bcba262f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackSource: 
-  damage: 10
+  damage: 15
   destroyOnHit: 0
