@@ -244,7 +244,6 @@ public class PlayerBehavior : MonoBehaviour
             finalMove = moveDirection * moveSpeed * Time.deltaTime;
         }
         finalMove.y = yVelocity * Time.deltaTime;
-
         characterController.Move(finalMove);
     }
 

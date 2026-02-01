@@ -32,7 +32,7 @@ public class CheckAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (hasHit) return;
+        if (attackSource == "Enemy" && hasHit) return;
 
         // 玩家的攻擊打到敵人
         if (attackSource == "Player" && other.CompareTag("Enemy"))
