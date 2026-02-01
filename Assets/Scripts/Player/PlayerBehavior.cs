@@ -232,6 +232,18 @@ public class PlayerBehavior : MonoBehaviour
         PerformAttack(CurrentAttackType);
     }
 
+    /// <summary>
+    /// 公開的攻擊方法，可以從 UI 按鈕或其他腳本呼叫
+    /// </summary>
+    public void TriggerAttack()
+    {
+        if (!Menu.gameStartBool)
+            return;
+
+        Debug.Log($"[{Time.time:F2}] 攻擊按鈕被按下！");
+        PerformAttack(CurrentAttackType);
+    }
+
     private void PerformAttack(int index)
     {
         if (isAttacking || index >= attackPatterns.Length) return;

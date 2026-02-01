@@ -23,17 +23,36 @@ public class Menu : MonoBehaviour
     public GameObject MenuObj;
     public GameObject GameOverObj;
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+            GameStart();
+    }
+
     private void OnEnable()
     {
-        InputManager.instance.input.Player.Attack.performed += GameStart;
+        InputManager.instance.input.Player.Attack.performed += AttackEvent;
     }
 
     private void OnDisable()
     {
-        InputManager.instance.input.Player.Attack.performed -= GameStart;
+        InputManager.instance.input.Player.Attack.performed -= AttackEvent;
 
     }
-    private void GameStart(InputAction.CallbackContext context)
+    private void AttackEvent(InputAction.CallbackContext context)
+    {
+        if (MenuObj.activeSelf)
+        {
+            gameStartBool = true;
+            MenuObj.SetActive(false);
+        }
+        else if (GameOverObj.activeSelf)
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    void GameStart ()
     {
         if (MenuObj.activeSelf)
         {
