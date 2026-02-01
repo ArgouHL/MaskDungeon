@@ -1260,7 +1260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7b72bb950ea464580b44ddab869e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 4110008767249316965, guid: 48420f1af8de11c479df31c87e418fce, type: 3}
+  anim: {fileID: 7339689965629174514}
   agent: {fileID: 0}
   player: {fileID: 0}
   eyePoint: {fileID: 0}
@@ -1351,6 +1351,7 @@ MonoBehaviour:
   popMinSize: 18
   popMaxSize: 48
   popSizePerDamage: 0.6
+  hurtAnimator: {fileID: 0}
 --- !u!114 &6647076556551788656
 MonoBehaviour:
   m_ObjectHideFlags: 0

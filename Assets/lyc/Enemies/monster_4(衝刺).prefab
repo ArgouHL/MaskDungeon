@@ -1113,7 +1113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7b72bb950ea464580b44ddab869e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 3942547457196940854, guid: 120ace9a23b7bad418897b42ce80d7ef, type: 3}
+  anim: {fileID: 5243574960670108712}
   agent: {fileID: 0}
   player: {fileID: 0}
   eyePoint: {fileID: 0}
@@ -1246,6 +1246,7 @@ MonoBehaviour:
   popMinSize: 18
   popMaxSize: 48
   popSizePerDamage: 0.6
+  hurtAnimator: {fileID: 0}
 --- !u!4 &2132001433274409187 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8232629940405297496, guid: 822c0dc5cb1f72c4dbbb44244e314263, type: 3}
