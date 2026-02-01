@@ -1034,6 +1034,11 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &215963580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8013750340394713471, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+  m_PrefabInstance: {fileID: 453556571}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &227078344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,6 +1256,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1973359957086306170, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
   m_PrefabInstance: {fileID: 453556571}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &240359259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215963580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d44a848dbed2cda4996611b0195c094d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.3
+  emissionIntensity: 1
+  popPrefab: {fileID: 0}
+  popOffset: {x: 0, y: 1.8, z: 0}
+  popRise: 0.6
+  popDuration: 0.9
+  popMinSize: 18
+  popMaxSize: 48
+  popSizePerDamage: 0.6
+  hurtAnimator: {fileID: 927303980}
 --- !u!1 &271491291
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,7 +2093,10 @@ PrefabInstance:
     - {fileID: 1391760063053798503, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8013750340394713471, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 240359259}
   m_SourcePrefab: {fileID: 100100000, guid: 281b34cbb173aa04e9925c6472ef5f97, type: 3}
 --- !u!1 &504733858
 GameObject:
@@ -3577,6 +3607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 927303979}
   - component: {fileID: 927303978}
+  - component: {fileID: 927303980}
   m_Layer: 0
   m_Name: Global Volume
   m_TagString: Untagged
@@ -3599,7 +3630,7 @@ MonoBehaviour:
   m_IsGlobal: 1
   priority: 0
   blendDistance: 0
-  weight: 1
+  weight: 0
   sharedProfile: {fileID: 11400000, guid: ffb2740826decaa4ab2b0dd95da6a117, type: 2}
 --- !u!4 &927303979
 Transform:
@@ -3616,6 +3647,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &927303980
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927303977}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5fa8083ae84750499e76ee03a87e8b3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &965777950
 GameObject:
   m_ObjectHideFlags: 0

@@ -430,4 +430,20 @@ public class EffectController : MonoBehaviour
     }
 
     #endregion CameraShake
+
+    #region HurtEffect
+
+    [Header("Hurt Effect Settings")]
+    public Animator hurtAnimator;
+    public void HurtEffect()
+    {
+        if (hurtAnimator != null)
+        {
+            hurtAnimator.SetTrigger("Hurt");
+            HitCameraShake(0.5f, 0.3f, 60f);
+            SetTimeScaleFor(0.01f, 0.1f, 0.05f);
+        }
+    }
+
+    #endregion HurtEffect
 }

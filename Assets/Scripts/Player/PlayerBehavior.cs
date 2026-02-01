@@ -214,6 +214,9 @@ public class PlayerBehavior : MonoBehaviour
     public void RemoveLastAttackType()
     {
         if(isRushing) return;
+        
+        GetComponent<EffectController>().HurtEffect();
+        
         if (attackTypes.Count > 1) // 至少保留一個攻擊類型
         {
             int removedType = attackTypes[attackTypes.Count - 1];
