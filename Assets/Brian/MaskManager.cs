@@ -51,9 +51,7 @@ public class MaskManager : MonoBehaviour
         float[] originalAlphas = new float[sideMasks.Length];
         for (int i = 0; i < sideMasks.Length; i++)
         {
-            var img = sideMasks[i];
-            if (img != null) originalAlphas[i] = img.color.a;
-            else originalAlphas[i] = 1f;
+            originalAlphas[i] = 1f;
         }
 
         // 1) Fade currently enabled masks to transparent then disable

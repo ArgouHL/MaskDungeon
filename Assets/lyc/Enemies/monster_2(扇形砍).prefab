@@ -1347,7 +1347,7 @@ MonoBehaviour:
     atkTime: 0.5
   - atkPrefab: {fileID: 8884777731559117836, guid: e1b4f439a63b3c242b6f0665912dc170, type: 3}
     aimPrefab: {fileID: 6405727550456626678, guid: e3abb80aead29844e91e749f742e01c7, type: 3}
-    point: {x: 0, y: 0, z: 0}
+    point: {x: 0, y: 0.5, z: 0}
     atkTime: 0.25
 --- !u!114 &3499036666947724139
 MonoBehaviour:
