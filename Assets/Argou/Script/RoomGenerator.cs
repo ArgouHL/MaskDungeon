@@ -11,7 +11,7 @@ public class RoomGenerator : MonoBehaviour
 
     [Header("�w�s��")]
     [SerializeField] GameObject startRoom;
-    [SerializeField] GameObject gameRoom;
+    [SerializeField] GameObject[] gameRooms;
     [SerializeField] GameObject endRoom;
 
     private List<Vector2Int> roomSet = new List<Vector2Int>();
@@ -77,7 +77,19 @@ public class RoomGenerator : MonoBehaviour
 
                     // �]�w�����s�q
                     spawnedRoomObjects[currentHead].GetComponent<RoomControl>().SetConnectDoor(way);
-                    spawnedRoomObjects[nextPos] = CreateRoomObject(gameRoom, nextPos, way, newDist);
+
+                    GameObject pre = gameRooms[2];
+                    if(newDist<=2)
+                    {
+                         pre = gameRooms[0];
+                    }
+                    else if(newDist<=4) 
+                    {
+                        pre = gameRooms[1];
+                    }
+
+
+                        spawnedRoomObjects[nextPos] = CreateRoomObject(pre, nextPos, way, newDist);
 
                     currentHead = nextPos;
                 }
@@ -146,6 +158,7 @@ public class RoomGenerator : MonoBehaviour
     {
         Vector3 worldPos = new Vector3(coord.x * roomSize.x, 0, coord.y * roomSize.y);
         GameObject go = Instantiate(prefab, worldPos, Quaternion.identity, transform);
+
         go.name = $"Room_{coord.x}_{coord.y}_Dist_{distanceMap[coord]}";
         roomControls.Add(go.GetComponent<RoomControl>());
         return go;
