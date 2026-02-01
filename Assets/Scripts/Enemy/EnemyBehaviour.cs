@@ -95,10 +95,29 @@ public class EnemyBehaviour : MonoBehaviour
             SetAttackSource(atk, "Enemy");
         }
 
+        aiController.anim.SetBool("isAttacking", true);
+
+        if (typeID == 4) // 衝刺
+        {
+            StartCoroutine(Rush());
+        }
+
         yield return new WaitForSeconds(attackPatterns[typeID].atkTime);
+        aiController.anim.SetBool("isAttacking", false);
 
         isAttacking = false;
         isAimming = false;
+    }
+    private IEnumerator Rush(float duration = 0.5f, float speed = 12f)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            transform.position += transform.forward * speed * Time.deltaTime;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
     }
 
     private void SetAttackSource(GameObject attackObject, string source)
