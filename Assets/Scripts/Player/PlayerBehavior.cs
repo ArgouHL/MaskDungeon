@@ -3,6 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using PinePie.SimpleJoystick;
+
+/// <summary>
+/// 控制平台類型
+/// </summary>
+public enum PlatformType
+{
+    Windows,  // 使用鍵盤輸入
+    Android   // 使用蘑菇頭（Joystick）輸入
+}
 
 public class PlayerBehavior : MonoBehaviour
 {
@@ -12,6 +22,17 @@ public class PlayerBehavior : MonoBehaviour
     // 當前攻擊類型（陣列最後一個元素）
     public int CurrentAttackType => attackTypes[attackTypes.Count - 1];
     [SerializeField] playerMask playerMask;
+
+    [Header("平台設置")]
+    [Tooltip("選擇當前平台：Windows 使用鍵盤，Android 使用蘑菇頭")]
+    [SerializeField] private PlatformType platformType = PlatformType.Windows;
+
+    [Header("蘑菇頭設置")]
+    [Tooltip("Joystick 控制器，如果不指定會自動尋找")]
+    [SerializeField] private JoystickController joystickController;
+    [Tooltip("Joystick 物件的名稱（用於自動尋找）")]
+    [SerializeField] private string joystickName = "PinePie Joystick";
+
     [Header("移动设置")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 720f;
@@ -20,7 +41,6 @@ public class PlayerBehavior : MonoBehaviour
     [Header("攻击设置")]
     [SerializeField] private AttackPattern[] attackPatterns;
 
-    private Vector2 moveInput => InputManager.instance.input.Player.Move.ReadValue<Vector2>();
     private Vector3 moveDirection;
     private Quaternion targetRotation;
     private bool hasTargetRotation = false;
@@ -30,6 +50,37 @@ public class PlayerBehavior : MonoBehaviour
     CharacterController characterController;
     private bool isRushing = false;
 
+    /// <summary>
+    /// 根據平台類型獲取移動輸入
+    /// </summary>
+    private Vector2 moveInput
+    {
+        get
+        {
+            switch (platformType)
+            {
+                case PlatformType.Windows:
+                    // 使用鍵盤輸入
+                    return InputManager.instance.input.Player.Move.ReadValue<Vector2>();
+
+                case PlatformType.Android:
+                    // 使用蘑菇頭輸入
+                    if (joystickController != null)
+                    {
+                        return joystickController.InputDirection;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("找不到 Joystick 控制器！");
+                        return Vector2.zero;
+                    }
+
+                default:
+                    return Vector2.zero;
+            }
+        }
+    }
+
     
 
 
@@ -37,6 +88,41 @@ public class PlayerBehavior : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+
+        // 如果是 Android 平台且沒有手動指定 Joystick，自動尋找
+        if (platformType == PlatformType.Android && joystickController == null)
+        {
+            FindJoystick();
+        }
+    }
+
+    /// <summary>
+    /// 自動尋找場景中的 Joystick
+    /// </summary>
+    private void FindJoystick()
+    {
+        JoystickController[] joysticks = FindObjectsOfType<JoystickController>();
+
+        foreach (var joystick in joysticks)
+        {
+            if (joystick.name == joystickName || joystick.gameObject.name == joystickName)
+            {
+                joystickController = joystick;
+                Debug.Log($"成功連接到 Joystick: {joystickController.gameObject.name}");
+                return;
+            }
+        }
+
+        // 如果找不到指定名稱的，就使用第一個找到的
+        if (joystickController == null && joysticks.Length > 0)
+        {
+            joystickController = joysticks[0];
+            Debug.LogWarning($"找不到名為 '{joystickName}' 的 Joystick，使用第一個找到的: {joysticks[0].gameObject.name}");
+        }
+        else if (joysticks.Length == 0)
+        {
+            Debug.LogError("場景中找不到任何 Joystick！請確保已添加 Joystick Prefab 到 Canvas 下。");
+        }
     }
 
     private void OnEnable()
