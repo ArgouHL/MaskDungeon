@@ -1,26 +1,36 @@
 using UnityEngine;
 using System.Collections;
 
-
 public class Bomb : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    bool hasBoomed = false;
+
     void Start()
     {
         StartCoroutine(SetBoom());
-        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private IEnumerator SetBoom()
+    IEnumerator SetBoom()
     {
         yield return new WaitForSeconds(3.5f);
         Visualize();
         yield return new WaitForSeconds(1.5f);
+        TriggerBoom();
+    }
+
+    void TriggerBoom()
+    {
+        if (hasBoomed) return;
+
+
+        GetComponent<CheckAttack>().enabled = true;
+        hasBoomed = true;
+        StopAllCoroutines();
+        StartCoroutine(Boom());
+    }
+
+    IEnumerator Boom()
+    {
         float duration = 0.75f;
         float timer = 0f;
 
@@ -39,9 +49,13 @@ public class Bomb : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         Destroy(gameObject);
     }
+
     void Visualize()
     {
-        
     }
 
+    void OnTriggerEnter()
+    {
+        TriggerBoom();
+    }
 }
