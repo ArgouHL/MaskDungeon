@@ -50,18 +50,19 @@ public class CheckAttack : MonoBehaviour
             {
                 enemy.GetDamage(damage);
             }
-        }else if (attackSource == "Player" && other.CompareTag("Mask"))
-        {
-            Debug.Log("打到玩家");
-            hasHit = true;
-
-            if (destroyOnHit)
-            {
-                Destroy(gameObject);
-            }
-            player.AddAttackType(other.GetComponent<MaskBehaviour>().GetType());
-            Destroy(other.gameObject);
         }
+        // else if (attackSource == "Player" && other.CompareTag("Mask"))
+        // {
+        //     Debug.Log("打到玩家");
+        //     hasHit = true;
+
+        //     if (destroyOnHit)
+        //     {
+        //         Destroy(gameObject);
+        //     }
+        //     player.AddAttackType(other.GetComponent<MaskBehaviour>().GetType());
+        //     Destroy(other.gameObject);
+        // }
         // 敵人的攻擊打到玩家
         else if (attackSource == "Enemy" && other.CompareTag("Player"))
         {

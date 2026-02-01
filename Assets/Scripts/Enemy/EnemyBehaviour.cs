@@ -122,4 +122,16 @@ public class EnemyBehaviour : MonoBehaviour
     {
         aiController.Hurt(dmg);
     }
+    public void Death()
+    {
+        StopAllCoroutines();
+        isAttacking = false;
+        isAimming = false;
+
+        if (currentAimEffect != null)
+        {
+            Destroy(currentAimEffect);
+            currentAimEffect = null;
+        }
+    }
 }
