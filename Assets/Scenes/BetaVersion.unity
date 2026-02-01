@@ -6361,6 +6361,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5286255603793131024, guid: 067d095ff53c96f48ba907e9cd370683, type: 3}
+      propertyPath: targetMaxLength
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8197992874271571691, guid: 067d095ff53c96f48ba907e9cd370683, type: 3}
       propertyPath: m_Name
       value: RoomGen (1)
