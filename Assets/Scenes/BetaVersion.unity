@@ -6990,9 +6990,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 602365778582952368, guid: c2254d81fb3fead4188efa7ed5d4f381, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4347628755055211987, guid: c2254d81fb3fead4188efa7ed5d4f381, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7229382015397155241, guid: c2254d81fb3fead4188efa7ed5d4f381, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -387
+      objectReference: {fileID: 0}
+    - target: {fileID: 7393286329401324400, guid: c2254d81fb3fead4188efa7ed5d4f381, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 831973ec23255db4188a4b251911b077, type: 3}
+    - target: {fileID: 7393286329401324400, guid: c2254d81fb3fead4188efa7ed5d4f381, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991752766049659297, guid: c2254d81fb3fead4188efa7ed5d4f381, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991752766049659297, guid: c2254d81fb3fead4188efa7ed5d4f381, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991752766049659297, guid: c2254d81fb3fead4188efa7ed5d4f381, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8385559130314387284, guid: c2254d81fb3fead4188efa7ed5d4f381, type: 3}
       propertyPath: m_Pivot.x
