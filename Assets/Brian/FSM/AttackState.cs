@@ -4,7 +4,7 @@ public class AttackState : IState
 {
     public void Enter(AIController controller)
     {
-        controller.anim.SetBool("isAttacking", true);
+        controller.anim.SetBool("isPreparing", true);
         controller.agent.isStopped = true;
         controller.agent.ResetPath();
         controller.agent.velocity = Vector3.zero;
@@ -22,6 +22,6 @@ public class AttackState : IState
 
     public void Exit(AIController controller)
     {
-        controller.anim.SetBool("isAttacking", false);
+        controller.anim.SetBool("isPreparing", false);
     }
 }
