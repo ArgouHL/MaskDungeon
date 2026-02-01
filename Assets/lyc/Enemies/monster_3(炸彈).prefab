@@ -1004,6 +1004,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 822c0dc5cb1f72c4dbbb44244e314263, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7337297841278863574}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 822c0dc5cb1f72c4dbbb44244e314263, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1488898044228655666}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 822c0dc5cb1f72c4dbbb44244e314263, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6647076556551788656}
     - targetCorrespondingSourceObject: {fileID: 5884145779480455521, guid: 822c0dc5cb1f72c4dbbb44244e314263, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7117629034932990744}
@@ -1066,11 +1072,11 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 5834769377271179512}
-  - screenRelativeHeight: 0.3541871
+  - screenRelativeHeight: 0.77880293
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 223016661780457950}
-  - screenRelativeHeight: 0.3531871
+  - screenRelativeHeight: 0.011747126
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 3606191885466216058}
@@ -1254,23 +1260,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7b72bb950ea464580b44ddab869e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 7339689965629174514}
+  anim: {fileID: 4110008767249316965, guid: 48420f1af8de11c479df31c87e418fce, type: 3}
   agent: {fileID: 0}
   player: {fileID: 0}
   eyePoint: {fileID: 0}
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
-  patrolRadius: 8
-  attackDistance: 2.5
-  attackCD: 3
-  attackRecover: 2
+  patrolRadius: 9
+  attackDistance: 1.8
+  attackCD: 5
+  attackRecover: 2.5
   attackTimer: 0
   chaseDistance: 8
-  chaseDegree: 60
+  chaseDegree: 120
   chaseTimer: 0
   chaseTime: 3
-  retreatDistance: 1.5
+  retreatDistance: 1
   retreatSpeed: 3
   reachedDistance: 0.6
   idleMin: 2
@@ -1278,8 +1284,9 @@ MonoBehaviour:
   idleTimer: 0
   health: 10
   damage: 1
-  dropMask: {fileID: 6042705933244592417, guid: 95885fdb736def448a5b852ff46a897e, type: 3}
+  dropMask: {fileID: 6042705933244592417, guid: 0f874acfc6a15354eb58ddcd4e64b97b, type: 3}
   enemyBehaviour: {fileID: 0}
+  midpoint: {fileID: 0}
 --- !u!195 &6317063244206775144
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1323,6 +1330,64 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.23579629, y: 0.34439954, z: 0.18099926}
   m_Center: {x: 0, y: 0.19637233, z: 0}
+--- !u!114 &1488898044228655666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5740210081629958218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d44a848dbed2cda4996611b0195c094d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.3
+  emissionIntensity: 1
+  popPrefab: {fileID: 0}
+  popOffset: {x: 0, y: 1.8, z: 0}
+  popRise: 0.6
+  popDuration: 0.9
+  popMinSize: 18
+  popMaxSize: 48
+  popSizePerDamage: 0.6
+--- !u!114 &6647076556551788656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5740210081629958218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce4c7aeb86e2704f9a9caef38f69b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  typeID: 3
+  attackRange: 5
+  rotationSpeed: 360
+  attackPatterns:
+  - atkPrefab: {fileID: 2973084724398799620, guid: 7f668eeadda50af4e8b65433430e50cd, type: 3}
+    aimPrefab: {fileID: 0}
+    point: {x: 0, y: 0, z: 1}
+    atkTime: 0.5
+  - atkPrefab: {fileID: 7371708411764677414, guid: 67e0b41ead1efa140a2a211ce5bd17d2, type: 3}
+    aimPrefab: {fileID: 3051143225358776909, guid: b12c3f2385a81f8478d9a3181855ba3a, type: 3}
+    point: {x: 0, y: 0, z: 1}
+    atkTime: 0.5
+  - atkPrefab: {fileID: 8884777731559117836, guid: e1b4f439a63b3c242b6f0665912dc170, type: 3}
+    aimPrefab: {fileID: 6405727550456626678, guid: e3abb80aead29844e91e749f742e01c7, type: 3}
+    point: {x: 0, y: 0, z: 0}
+    atkTime: 0.25
+  - atkPrefab: {fileID: 8884777731559117836, guid: 00fee8d6dd32a7b46a52f368e95cd416, type: 3}
+    aimPrefab: {fileID: 6405727550456626678, guid: e3abb80aead29844e91e749f742e01c7, type: 3}
+    point: {x: 0, y: 0, z: 0}
+    atkTime: 0.25
+  - atkPrefab: {fileID: 8884777731559117836, guid: 6bb63196c5dae56498de8a46990df503, type: 3}
+    aimPrefab: {fileID: 3051143225358776909, guid: 46a7b982c7bcd9244bad74f63604ee2e, type: 3}
+    point: {x: 0, y: 0, z: 0}
+    atkTime: 0.5
 --- !u!4 &5872535476556398925 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1303603659101195350, guid: 822c0dc5cb1f72c4dbbb44244e314263, type: 3}
