@@ -4,9 +4,6 @@ using System.Collections;
 
 public class Bomb : MonoBehaviour
 {
-    private float radius = 3f;
-    public GameObject prefab;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
