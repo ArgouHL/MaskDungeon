@@ -48,5 +48,8 @@ MonoBehaviour:
   targetMaxLength: 9
   maxDeadLength: 2
   startRoom: {fileID: 5440110738581736930, guid: 2099720916433d7439537c4ef63294a5, type: 3}
-  gameRoom: {fileID: 5440110738581736930, guid: f3fb2c7d346bd724b829b37ecfbe83ae, type: 3}
+  gameRooms:
+  - {fileID: 5440110738581736930, guid: 4fdb5f70fc4e28c49bcd82d13b517a0d, type: 3}
+  - {fileID: 5440110738581736930, guid: e98e236f79fd3bb429bd4ed958eeee75, type: 3}
+  - {fileID: 5440110738581736930, guid: a1db6cfc224734b45a28a69a03efdff9, type: 3}
   endRoom: {fileID: 5440110738581736930, guid: e3421d2d907cd3840adf95b54e750cf9, type: 3}
