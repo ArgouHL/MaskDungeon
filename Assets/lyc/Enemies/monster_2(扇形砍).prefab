@@ -1274,7 +1274,7 @@ MonoBehaviour:
   idleTimer: 0
   health: 12
   damage: 1
-  dropMask: {fileID: 6042705933244592417, guid: 0f874acfc6a15354eb58ddcd4e64b97b, type: 3}
+  dropMask: {fileID: 6042705933244592417, guid: 95885fdb736def448a5b852ff46a897e, type: 3}
   enemyBehaviour: {fileID: 0}
   midpoint: {fileID: 0}
 --- !u!195 &3080729231108090079
@@ -1373,6 +1373,7 @@ MonoBehaviour:
   popMinSize: 18
   popMaxSize: 48
   popSizePerDamage: 0.6
+  hurtAnimator: {fileID: 0}
 --- !u!4 &5660468703539860252 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8085551984385485592, guid: 822c0dc5cb1f72c4dbbb44244e314263, type: 3}

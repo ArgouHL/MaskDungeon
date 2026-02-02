@@ -6454,8 +6454,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maskIcons:
   - {fileID: 21300000, guid: 15414857e99d64145a28317a9e833da9, type: 3}
-  - {fileID: 21300000, guid: 62c958d2cdc6d124b83b53fdc8f97b8a, type: 3}
   - {fileID: 21300000, guid: cff3b85e1aefdd248870ad5bccf9cf01, type: 3}
+  - {fileID: 21300000, guid: 62c958d2cdc6d124b83b53fdc8f97b8a, type: 3}
   - {fileID: 21300000, guid: 3bc5e67253810284cbf27afd2a1c8006, type: 3}
   maskImage: {fileID: 1781375153}
   cdmaskImage: {fileID: 623182462}
